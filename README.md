@@ -1,187 +1,144 @@
-# KMN Strategy
+# Spec-Coding: Authority-Driven & Clarified Development
 
-> **Knowledge. Memory. Navigation.**
->
-> A lightweight methodology for organizing repository knowledge directly alongside the project.
+Welcome to the **Spec-Coding** practice repository! This project serves as an introductory guide, blueprint, and template for implementing **Spec-Coding**—a structured development methodology optimized for both human engineers and AI agents.
 
-## Overview
+By establishing strict boundaries between **what** the system must do (Specification), **how** the system is built step-by-step (Clarification), and **where** contextual knowledge is stored (Knowledge, Memory, & Navigation), Spec-Coding maximizes development speed, prevents architectural drift, and ensures unparalleled consistency in AI-assisted code generation.
 
-**KMN (Knowledge, Memory, Navigation)** is a repository-centric methodology for helping both humans and AI agents efficiently understand, navigate, and maintain projects.
+---
 
-Instead of relying on external knowledge bases, MCP servers, vector databases, or separate knowledge management applications, KMN stores project metadata inside the repository as structured, version-controlled Markdown.
+## 🗺️ Architectural Concept
 
-The implementation of this methodology is called the **KMN-Layer**.
-
-A KMN-Layer forms a lightweight **metadata layer** that exists alongside the primary project content while remaining completely independent from it.
-
-The primary project remains the single source of truth.
-
-# Motivation
-
-Modern AI coding assistants can read source code extremely well, but they often spend significant effort rediscovering repository structure and repeatedly loading irrelevant files.
-
-Projects frequently attempt to solve this with:
-
-* large instruction prompts
-* external documentation systems
-* MCP servers
-* vector databases
-* separate knowledge management tools
-
-These approaches can be effective, but they also introduce additional infrastructure, synchronization, indexing, and maintenance.
-
-KMN takes a simpler approach:
-
-> Keep repository knowledge inside the repository.
-
-Repository knowledge evolves together with the project, can be reviewed like source code, and requires no external services.
-
-# KMN Principles
-
-## Knowledge
-
-Describe how the project is designed.
-
-Knowledge captures relatively stable information
-
-Knowledge answers:
-
-> **How does this work?**
-
-## Memory
-
-Preserve operational experience.
-
-Memory records long-term lessons learned during development
-
-Memory answers:
-
-> **What have previous contributors learned?**
-
-## Navigation
-
-Enable progressive discovery.
-
-Navigation provides a lightweight map of the repository, allowing agents to locate relevant information before opening implementation files.
-
-Navigation answers:
-
-> **Where should I look?**
-
-# KMN-Layer
-
-A **KMN-Layer** is the metadata layer implementing the KMN strategy.
-
-Layer typically contains:
+In Spec-Coding, development flows unidirectionally from the specification to implementation, guided by clarifications:
 
 ```text
-.navigation/
-    Index.md
-    {name}.md
-
-.knowledge/
-    Index.md
-    {topic}.md
-
-.memory/
-    Index.md
-    {topic}.md
+       ┌────────────────────────┐
+       │      Source/Specs      │ ◄── [Authoritative Truth]
+       └───────────┬────────────┘
+                   │
+                   │ defines the desired result
+                   ▼
+       ┌────────────────────────┐
+       │      Source/Clars      │ ◄── [Step-by-Step Guidance]
+       └───────────┬────────────┘
+                   │
+                   │ defines how to develop toward that result
+                   ▼
+       ┌────────────────────────┐
+       │     Implementation     │ ◄── [Executable Code]
+       └────────────────────────┘
 ```
 
-These folders contain metadata only.
+---
 
-They are not part of the primary project implementation.
+## 📂 Repository Layout
 
-# Metadata Layer
-
-The KMN-Layer forms an independent metadata layer.
-
-```
-Repository
-
-├── Primary Content
-│   ├── Source Code
-│   ├── Documentation
-│   ├── Specifications
-│   ├── Assets
-│   └── ...
-│
-└── KMN-Layer
-    ├── .navigation
-    ├── .knowledge
-    └── .memory
-```
-
-The metadata layer exists solely to assist discovery and understanding.
-
-Primary project content should never depend upon the metadata layer.
-
-Likewise, metadata should summarize and guide, never replace the primary content.
-
-# Progressive Discovery
-
-Rather than reading an entire repository, KMN encourages progressive discovery:
+A typical Spec-Coding repository is organized with an explicit separation of specification, development step clarifications, and executable code:
 
 ```text
-Navigation
-        ↓
-Relevant Knowledge
-        ↓
-Relevant Memory
-        ↓
-Primary Content
+├── README.md               # Repository introduction and overview
+├── Specification.md        # Core rules and authority definitions of specs
+├── Clarification.md        # Framework for step-by-step development guidance
+├── KMN.md                  # Metadata layer specification (Knowledge, Memory, Navigation)
+├── coding.png              # Architectural diagram of the practice
+└── Source/                 # The primary workspace for development
+    ├── Specs/              # Authoritative source of truth (Specifications)
+    ├── Clars/              # Implementation sequence and detail guides (Clarifications)
+    │   ├── Index.md        # Entry point and index for all clarifications
+    │   ├── 1-Code organization/
+    │   ├── 2-UI code organization/
+    │   └── ...
+    └── [App Code]          # Actual source code files (e.g., components, backend, etc.)
 ```
 
-Agents should expand exploration only when additional context is required.
+---
 
-This minimizes unnecessary repository exploration while improving task focus.
+## 🎯 Core Principles
 
-# Repository-Local
+### 1. Specification Authority (`Source/Specs/`)
+The specification layer is the **highest priority artifact** in the codebase.
+* **The Truth:** Every line of code, design asset, and configuration under `Source/` must conform to the models and constraints defined under `Source/Specs/`.
+* **Zero Contradictions:** Generated code or transient artifacts can never redefine or override specifications.
+* **No Accommodation Edits:** Never modify a spec to match or justify a convenient implementation. If a spec needs to change, it must be updated intentionally through an explicit specification-change process first, after which the implementation is updated or regenerated to align.
 
-KMN intentionally keeps knowledge local.
+*For more details, see the complete [Specification Rules](./Specification.md).*
 
-Each metadata layer is responsible only for its own area of the repository.
+---
 
-Large repositories naturally become a hierarchy of small KMN-Layer rather than one centralized knowledge base.
+### 2. Clarification Sequencing (`Source/Clars/`)
+While specifications define **what the system should be**, clarifications define **how to develop toward that result**.
+* **Step-by-Step Guidance:** Clarifications translate complex specifications into sequenced implementation instructions, code samples, and concrete local configurations.
+* **Dependency & Order:** Clarification directories use an ordering prefix (e.g., `1-Code organization`, `2-UI code organization`). Lower-order clarifications are completed first, establishing dependencies that higher-order steps can safely rely upon.
+* **No New Requirements:** Clarifications must never introduce goals or requirements that are not derived from the specifications.
 
-This keeps metadata:
+*For more details, see the complete [Clarification Rules](./Clarification.md).*
 
-* modular
-* maintainable
-* discoverable
-* scalable
+---
 
-# Benefits
+### 3. KMN Metadata Layer (Knowledge, Memory, & Navigation)
+Spec-Coding integrates **KMN**, a lightweight, in-place metadata layer that resides alongside primary files to help AI agents and human contributors efficiently navigate and understand the workspace.
 
-* Repository-local
-* Human-readable
-* Version controlled
-* No external infrastructure
-* Minimal setup
-* AI-friendly
-* Works offline
-* Independent of programming language
-* Independent of AI model
+```text
+.navigation/    # Answers: "Where should I look?"
+    └── Index.md
+.knowledge/     # Answers: "How does this work?"
+    └── Index.md
+.memory/        # Answers: "What have previous agents learned?"
+    └── Index.md
+```
 
-# Relationship to External Knowledge Systems
+* **Independent & Non-intrusive:** The metadata layer supplements the code but is never imported or referenced by the primary source code.
+* **Prevents Broad Scans:** Agents use `.navigation/Index.md` to pinpoint specific code files instead of performing expensive full-workspace scans.
+* **Long-Term Preservation:** `.memory` captures operational pitfalls, debugging breakthroughs, and setup quirks that keep future agents from repeating past mistakes.
 
-KMN is not intended to replace MCP servers, vector search, or enterprise knowledge systems.
+*For more details, see the complete [KMN Metadata Guide](./KMN.md).*
 
-Instead, it provides a lightweight repository-native foundation.
+---
 
-Projects may later index a KMN-Layer using external retrieval systems if desired, while continuing to maintain repository knowledge as ordinary Markdown.
+## 🚀 The Spec-Coding Workflow
 
-# Design Goals
+Whether you are a developer or an AI agent, you should interact with this repository using the following workflow:
 
-The KMN strategy aims to:
+```text
+   ┌─────────────────────────────────────────────────────────┐
+   │ 1. RESEARCH & DISCOVER                                  │
+   │    Identify nearest metadata layer (.navigation/Index)  │
+   │    to locate specifications and relevant code.          │
+   └────────────────────────────┬────────────────────────────┘
+                                │
+                                ▼
+   ┌─────────────────────────────────────────────────────────┐
+   │ 2. CONSULT SPECIFICATIONS                               │
+   │    Read the authoritative model in Source/Specs/.       │
+   └────────────────────────────┬────────────────────────────┘
+                                │
+                                ▼
+   ┌─────────────────────────────────────────────────────────┐
+   │ 3. ALIGN WITH CLARIFICATIONS                            │
+   │    Consult Source/Clars/ for step-by-step instructions  │
+   │    following the defined Order Index (<Order>-<Name>).  │
+   └────────────────────────────┬────────────────────────────┘
+                                │
+                                ▼
+   ┌─────────────────────────────────────────────────────────┐
+   │ 4. EXECUTE & VALIDATE                                   │
+   │    Generate/write code. Verify output does not          │
+   │    contradict Specs/ or introduce hidden assumptions.   │
+   └────────────────────────────┬────────────────────────────┘
+                                │
+                                ▼
+   ┌─────────────────────────────────────────────────────────┐
+   │ 5. UPDATE METADATA (KMN)                                │
+   │    Record lessons learned in .memory/ if any major      │
+   │    pitfalls or system insights were discovered.         │
+   └─────────────────────────────────────────────────────────┘
+```
 
-* reduce unnecessary repository exploration
-* improve AI-assisted development
-* preserve long-term repository knowledge
-* separate metadata from implementation
-* encourage progressive discovery
-* keep documentation easy to maintain
+---
 
-The guiding philosophy is simple:
+## 🤝 Contributing & Best Practices
 
-> Keep project knowledge where the project lives.
+1. **Specs Over Code:** If a pull request modifies source code in a way that diverges from `Source/Specs/`, either update the PR to match the specification, or explicitly propose a Specification Update PR first.
+2. **Keep Clarifications Modular:** Write focused clarification guides. Start clarification names with sequential indices so that dependencies are obvious.
+3. **Respect KMN Scope:** Keep metadata folders local to the specific modules they describe. Do not let `.navigation` or `.knowledge` grow into massive monolithic files.
+
+Let's build reliable, deterministic, and highly explainable software using **Spec-Coding**!
