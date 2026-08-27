@@ -176,3 +176,130 @@ The metadata layer should always be:
 - easy to maintain.
 
 The objective is to minimize unnecessary repository exploration while enabling agents to quickly locate relevant information, understand the repository, and leverage accumulated knowledge and operational experience.
+
+# Specification
+
+## 1. Purpose
+
+`Source/Specs/` is the authoritative source of truth for the source specification.
+
+All generated output MUST conform to the specifications defined under `Source/Specs/`.
+
+## 2. Specification Authority
+
+* `Source/Specs/` has the **highest priority** among project artifacts.
+* `Source/Specs/` defines the intended behavior, structure, constraints, and requirements of the project.
+* When generated content conflicts with `Specs/`, the specification takes precedence.
+* Generated content MUST NOT redefine, override, or silently contradict the specification.
+
+## 3. Generation Rule
+
+Before generating or modifying any output in `Source/`:
+
+1. Read and understand the applicable specification in `Source/Specs/`.
+2. Treat the specification as the authoritative model.
+3. Generate the output according to that model.
+4. Verify that the generated output does not contradict or violate the specification.
+
+All generated output MUST follow the model defined by `Source/Specs/`.
+
+## 4. Conflict Resolution
+
+When information conflicts across transient artifacts, resolve conflicts according to this priority:
+
+* A  transient artifact MUST be corrected or regenerated when it conflicts with the specification.
+
+* The existence of a previously generated artifact does not establish authority over the specification.
+
+## 5. Specification Integrity
+
+Do not modify `Source/Specs/` merely to make generated output appear valid.
+
+If the specification itself must change, that change MUST be intentional and explicitly treated as a specification change. After the specification changes, affected transient artifacts should be regenerated or updated to conform to the new specification.
+
+# Clarification
+
+## Purpose
+
+`Source/Specs` defines **how the goal-source should be**. It describes the intended result, structure, behavior, and constraints of the system.
+
+`Source/Clars` defines **development steps in detail** to achieve parts of the specification. A clarification translates a portion of the specification into concrete implementation guidance without becoming the specification itself.
+
+## Organization
+
+```text
+Source/
+	Specs/
+		...
+
+	Clars/
+		Index.md
+		1-Code organization
+		1-Code organization/
+
+		2-UI code organization
+```
+
+Each clarification consists of:
+
+* A clarification file defining the development guidance.
+* Optionally, a folder containing additional detailed clarifications.
+
+The clarification name starts with an **order index**:
+
+```text
+<Order>-<Clarification-name>
+```
+
+For example:
+
+```text
+1-Code organization
+2-UI code organization
+3-Network layer
+```
+
+## Clarification Order
+
+The order index defines the development sequence and establishes a dependency between clarifications.
+
+A clarification with order `N` may rely on clarifications with a lower order that have already been completed.
+
+For example:
+
+```text
+1-Code organization
+2-UI code organization
+3-Network layer
+```
+
+`2-UI code organization` may assume the requirements and development decisions established by `1-Code organization`.
+
+Therefore:
+
+* Lower-order clarifications are expected to be completed before higher-order clarifications.
+* A clarification must not assume the implementation of a higher-order clarification.
+* Higher-order clarifications may build upon lower-order clarifications.
+* The order represents **development dependency**, not specification priority.
+
+## Relationship Between Specification and Clarification
+
+The relationship is:
+
+```text
+Source/Specs
+    ↓ defines the desired result
+Source/Clars
+    ↓ defines how to develop toward that result
+Implementation
+```
+
+1. Specification has higher authority than Clarification.
+
+2. Clarification must not introduce requirements that are absent from the Specification.
+
+3. Clarification may specify implementation details, sequencing, constraints, examples, and development procedures.
+
+4. If a Clarification conflicts with the Specification, update the Clarification rather than modifying the implementation to satisfy the conflict. Clarifications must remain consistent with the specifications.
+
+`Source/Clars` is therefore an implementation-oriented layer, while `Source/Specs` remains the authoritative definition of the desired system.
