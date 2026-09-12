@@ -1,4 +1,3 @@
-
 # Spec-Coding: Authority-Driven & Clarified Development
 
 Welcome to the **Spec-Coding** practice repository! This project serves as an introductory guide, blueprint, and template for implementing **Spec-Coding**—a structured development methodology optimized for both human engineers and AI agents.

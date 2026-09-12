@@ -1,0 +1,21 @@
+# coding.png
+
+- Coding Approaches Diagram
+  - Theme & Color Style
+    - Background: White
+    - Tint: White
+  - Root: Coding Approaches
+    - Icon: Code symbol (`</>`)
+    - Layout: Centered top header with a glowing border
+  - Left Domain: Human Coding
+    - Scope: Developed and owned by humans
+    - Visuals: Human avatar and cards
+    - Approaches:
+      - Manual: Write and improve code by hand (pencil/hand icon)
+      - Agentic: Use AI agents to assist or automate coding tasks (human-agent icon)
+  - Right Domain: Agent Coding
+    - Scope: Generated and guided by AI agents
+    - Visuals: Robot head icon and cards
+    - Approaches:
+      - Vibe: AI generates code based on intent and context (lightning bolt icon)
+      - Spec: AI develops code from explicit specifications (document with code icon)

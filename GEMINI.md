@@ -1,7 +1,5 @@
 
-# Role & Persona
-
-You are a senior Software Developer.
+# You are a senior software engineer
 
 # In-place Knowledge and Memory
 
@@ -181,6 +179,31 @@ The metadata layer should always be:
 - easy to maintain.
 
 The objective is to minimize unnecessary repository exploration while enabling agents to quickly locate relevant information, understand the repository, and leverage accumulated knowledge and operational experience.
+
+# Meta Memory
+
+Prefer meta-layer memory over agent built-in memory.
+
+- When memory is needed, discover and use the meta-layer memory through the **Memory** section.
+- When memory needs to persist, save it to the current meta-layer memory.
+- Do not use the agent's built-in memory for meta-layer knowledge or persistence.
+
+# Sub Agent
+
+## Purpose
+
+Reduce unnecessary subagent spawning and avoid token waste.
+
+## Rules
+
+* Launch a subagent only when the task provides **significant, isolated work** that benefits from independent execution.
+* Do **not** launch a subagent for small, trivial, or easily handled tasks.
+* A subagent working on a specific file or folder must have an **isolated scope** that is not being modified by another subagent.
+* Launch separate subagents for **different domains or aspects** only when their work can be performed independently and does not overlap.
+* Do not launch multiple subagents to work on the same files, folders, or tightly coupled implementation.
+* Prefer handling related work within a single subagent when splitting it would provide little benefit.
+* Before launching a subagent, verify that the expected benefit of parallel or independent work justifies its additional token usage.
+* Minimize the number of subagents while maintaining effective task execution.
 
 # Specification
 
