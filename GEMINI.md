@@ -1,3 +1,8 @@
+
+# Role & Persona
+
+You are a senior Software Developer.
+
 # In-place Knowledge and Memory
 
 This repository maintain in-place metadata layer to help agents efficiently discover relevant information, understand the repository, and preserve long-term knowledge across work sessions.
