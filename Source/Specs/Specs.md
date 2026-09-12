@@ -3,7 +3,7 @@
 - Coding Approaches Diagram
   - Theme & Color Style
     - Background: White
-    - Tint: White
+    - Tint: Black 
   - Root: Coding Approaches
     - Icon: Code symbol (`</>`)
     - Layout: Centered top header with a glowing border
