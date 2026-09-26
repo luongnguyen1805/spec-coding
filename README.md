@@ -8,7 +8,7 @@ By establishing clear boundaries between specifications, step-by-step guidance, 
 
 ## Architectural Concept
 
-![Architectural Diagram](./coding.png)
+![Architectural Diagram](./future-coding.png)
 
 In Spec-Coding, development flows unidirectionally from the specification to implementation, guided by clarifications:
 
@@ -39,7 +39,6 @@ A typical Spec-Coding repository is organized with an explicit separation of spe
 ```text
 ├── README.md               # Repository introduction and overview (this file)
 ├── GEMINI.md               # Repository handbook (Specifications, Clarifications, Metadata rules)
-├── coding.png              # Architectural diagram of the practice
 └── Source/                 # The primary workspace for development
     ├── Specs/              # Authoritative source of truth (Specifications)
     ├── Clars/              # Implementation sequence and detail guides (Clarifications)
