@@ -1,7 +1,7 @@
 
 # Specifications
 
-- "Specs/Future Coding.md"
+- "Specs/Coding Models.md"
 
 # Clarifications
 
@@ -22,7 +22,7 @@
   - Root Node: Draw rounded rectangle at top center coordinates.
   - Domain Nodes: Draw rounded rectangles for Human and Agent Domains.
   - Leaf Nodes: Draw rounded rectangles for the four specific coding approaches.
-  - Style: All nodes have a solid 2px black border and pure white fill.
+  - Style: All nodes have a solid 2px blue border and pure white fill.
 - Step 4: Embed Icons and Typographic Text
   - Render each icon in its precise node-offset coordinate using clean `<g>` groups and vector paths.
   - Render title and description text using `<text>` elements.

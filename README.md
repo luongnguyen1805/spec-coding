@@ -8,7 +8,7 @@ By establishing clear boundaries between specifications, step-by-step guidance, 
 
 ## Architectural Concept
 
-![Architectural Diagram](./future-coding.png)
+![Architectural Diagram](./Coding-Models.png)
 
 In Spec-Coding, development flows unidirectionally from the specification to implementation, guided by clarifications:
 
@@ -131,13 +131,3 @@ Whether you are a developer or an AI agent, you should interact with this reposi
    │    pitfalls or system insights were discovered.         │
    └─────────────────────────────────────────────────────────┘
 ```
-
----
-
-## Contributing & Best Practices
-
-1. **Specs Over Code:** If a pull request modifies source code in a way that diverges from `Source/Specs/`, either update the PR to match the specification, or explicitly propose a Specification Update PR first.
-2. **Keep Clarifications Modular:** Write focused clarification guides. Start clarification names with sequential indices so that dependencies are obvious.
-3. **Respect Metadata Scope:** Keep metadata folders local to the specific modules they describe. Do not let `.navigation` or `.knowledge` grow into massive monolithic files.
-
-Let's build reliable, deterministic, and highly explainable software using **Spec-Coding**!

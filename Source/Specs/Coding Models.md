@@ -3,7 +3,6 @@
 - Diagram: Coding Approaches
   - Theme: Monochrome Minimalist
     - Background: Pure White (`#FFFFFF`)
-    - Foreground/Lines/Text: Solid Black (`#000000`)
     - Font: Modern sans-serif stack (system-ui, -apple-system, Arial, sans-serif)
   - Root Node: Coding Approaches
     - Icon: SVG Vector Code Brackets (`</>`)
@@ -41,8 +40,8 @@
 # Shapes & Layouts
 
 - Layout Architecture: Hierarchical Tree Flow
-  - Connections: Orthogonal black lines centered between parent/child nodes
-    - Line weight: 2px solid black
+  - Connections: Orthogonal solid-blue lines centered between parent/child nodes
+    - Line weight: 2px solid solid-blue
     - Alignment: Perfectly snapped to box edges and midpoints
   - Canvas Dimensions
     - Width: 1200px (scalable via viewBox)
