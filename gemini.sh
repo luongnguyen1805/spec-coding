@@ -75,7 +75,7 @@ if [[ "$SETUP" == true ]]; then
     exit 0
 fi
 
-# Run Claude as restricted user
+# Run Gemini as restricted user
 exec sudo -H -u agent \
     HOME=/Users/agent \
     bash -lc "cd '$WORKDIR' && umask 007 &&  exec $COMMAND"

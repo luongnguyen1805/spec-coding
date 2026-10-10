@@ -314,3 +314,61 @@ Implementation
 4. If a Clarification conflicts with the Specification, update the Clarification rather than modifying the implementation to satisfy the conflict. Clarifications must remain consistent with the specifications.
 
 `Source/Clars` is therefore an implementation-oriented layer, while `Source/Specs` remains the authoritative definition of the desired system.
+
+# Context Efficiency
+
+- Search narrowly: prefer targeted `grep`/`glob` for a specific symbol or filename over listing or reading directories.
+- Read only what the task needs. Don't open unrelated modules, and never read build artifacts, `.git/`, or dependency folders.
+- Stay within the task's scope. If a change requires touching files outside it (callers, conformances, tests), make the minimal necessary edit and mention it briefly.
+- If the location of something is unclear, search for it rather than guessing a path.
+
+# Output
+
+- Default to concise output: state results and decisions, skip background and recap.
+- Expand only when asked or when a risk/ambiguity needs flagging.
+
+# Destructive
+
+The following rules apply to all generated scripts, code, and agent actions.
+
+- All file paths in generated scripts or code must be expanded to absolute paths. Never use relative paths.
+
+- Any file read or file write outside the Workspace directory is considered a destructive action.
+
+- Any network upload or transmission of Workspace content to external services is considered a destructive action.
+
+- Any destructive action requires explicit user approval before execution. The agent must pause and wait for approval instead of proceeding automatically.
+
+# Entry Discovery
+
+When working in a folder, discover its entry file using the following priority order. Stop at the first matching entry file.
+
+1. `{folderName}.md`
+2. `{folderName}.txt`
+3. `Index.md`
+4. `Index.txt`
+5. `All.md`
+6. `All.txt`
+7. `README.md`
+8. `README.txt`
+
+Where `{folderName}` is the name of the current folder.
+
+The first matching file is the folder's entry file and has higher priority than all subsequent candidates.
+
+# Sub Agent
+
+## Purpose
+
+Reduce unnecessary subagent spawning and avoid token waste.
+
+## Rules
+
+* Launch a subagent only when the task provides **significant, isolated work** that benefits from independent execution.
+* Do **not** launch a subagent for small, trivial, or easily handled tasks.
+* A subagent working on a specific file or folder must have an **isolated scope** that is not being modified by another subagent.
+* Launch separate subagents for **different domains or aspects** only when their work can be performed independently and does not overlap.
+* Do not launch multiple subagents to work on the same files, folders, or tightly coupled implementation.
+* Prefer handling related work within a single subagent when splitting it would provide little benefit.
+* Before launching a subagent, verify that the expected benefit of parallel or independent work justifies its additional token usage.
+* Minimize the number of subagents while maintaining effective task execution.

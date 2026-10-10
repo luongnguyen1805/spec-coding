@@ -28,3 +28,9 @@
   - Render title and description text using `<text>` elements.
   - Style text with CSS font-family, bold font-weights, and proper vertical offsets.
   - Use text-anchor "middle" or correct margins for pixel-perfect centering.
+
+# Output
+
+- Output html-source to folder "Source/Coding Models"
+
+- Output final-image to "Coding-Models.png"
