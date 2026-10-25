@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <title>DeskUtils app icon</title>
+  <desc>A folder and package on a blue desktop tile, representing software and storage utilities.</desc>
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#237EEA"/><stop offset="1" stop-color="#133A91"/></linearGradient>
+    <linearGradient id="folder" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#FFFFFF"/><stop offset="1" stop-color="#CDE9FF"/></linearGradient>
+  </defs>
+  <rect x="80" y="96" width="864" height="864" rx="194" fill="#071E4B" opacity=".18"/>
+  <rect x="80" y="64" width="864" height="864" rx="194" fill="url(#tile)"/>
+  <rect x="96" y="80" width="832" height="832" rx="180" fill="none" stroke="#FFFFFF" stroke-opacity=".18" stroke-width="4"/>
+  <path d="M232 324 Q232 292 264 292 H398 Q414 292 426 308 L458 348 H716 Q748 348 748 380 V660 Q748 692 716 692 H264 Q232 692 232 660 Z" fill="#92C5FF"/>
+  <rect x="208" y="384" width="568" height="328" rx="42" fill="url(#folder)"/>
+  <rect x="260" y="444" width="186" height="20" rx="10" fill="#3C79B5" opacity=".55"/>
+  <rect x="260" y="486" width="124" height="20" rx="10" fill="#3C79B5" opacity=".3"/>
+  <path d="M504 534 L648 454 L792 534 V696 L648 778 L504 696 Z" fill="#153B70" opacity=".16" transform="translate(0 16)"/>
+  <path d="M504 534 L648 454 L792 534 L648 616 Z" fill="#FFD08A"/>
+  <path d="M504 534 L648 616 V778 L504 696 Z" fill="#F4A13D"/>
+  <path d="M648 616 L792 534 V696 L648 778 Z" fill="#DF7825"/>
+  <path d="M574 495 L718 576 V636 L680 658 V598 L536 516 Z" fill="#FFF0CA"/>
+  <path d="M550 654 L597 681" fill="none" stroke="#B66520" stroke-width="14" stroke-linecap="round"/>
+</svg>

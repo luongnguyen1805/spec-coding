@@ -1,0 +1,566 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8407CAB32FF4C02F00FCC895 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CAB22FF4C02F00FCC895 /* DashboardView.swift */; };
+		8407CAB42FF4C02F00FCC895 /* DashboardCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CAB12FF4C02F00FCC895 /* DashboardCard.swift */; };
+		8407CAB62FF4C03D00FCC895 /* FolderManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CAB52FF4C03D00FCC895 /* FolderManagerView.swift */; };
+		8407CAC22FF4C04800FCC895 /* SoftwareManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CAC02FF4C04800FCC895 /* SoftwareManagerView.swift */; };
+		8407CAC32FF4C04800FCC895 /* DependenciesCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CAB92FF4C04800FCC895 /* DependenciesCard.swift */; };
+		8407CAC42FF4C04800FCC895 /* MetadataCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CABD2FF4C04800FCC895 /* MetadataCard.swift */; };
+		8407CAC52FF4C04800FCC895 /* SoftwareDetailPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CAB72FF4C04800FCC895 /* SoftwareDetailPanelView.swift */; };
+		8407CAC62FF4C04800FCC895 /* SourceBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CAC12FF4C04800FCC895 /* SourceBadge.swift */; };
+		8407CAC72FF4C04800FCC895 /* HeaderCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CABC2FF4C04800FCC895 /* HeaderCard.swift */; };
+		8407CAC82FF4C04800FCC895 /* RevealInFinderButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CABE2FF4C04800FCC895 /* RevealInFinderButton.swift */; };
+		8407CAC92FF4C04800FCC895 /* SoftwareFirstPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CABF2FF4C04800FCC895 /* SoftwareFirstPanelView.swift */; };
+		8407CACA2FF4C04800FCC895 /* FlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CABB2FF4C04800FCC895 /* FlowLayout.swift */; };
+		8407CACB2FF4C04800FCC895 /* DetailsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CABA2FF4C04800FCC895 /* DetailsCard.swift */; };
+		8407CACC2FF4C04800FCC895 /* SoftwareSecondPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CAB82FF4C04800FCC895 /* SoftwareSecondPanelView.swift */; };
+		8407CACF2FF4C05600FCC895 /* CardContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CACD2FF4C05600FCC895 /* CardContainer.swift */; };
+		8407CAD02FF4C05600FCC895 /* DetailRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CACE2FF4C05600FCC895 /* DetailRow.swift */; };
+		8407CAD22FF4C05600FCC895 /* FolderFirstPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CAD12FF4C05600FCC895 /* FolderFirstPanelView.swift */; };
+		8407CAD42FF4C05600FCC895 /* FolderSecondPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CAD32FF4C05600FCC895 /* FolderSecondPanelView.swift */; };
+		8407CAD62FF4C05600FCC895 /* FolderDetailPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CAD52FF4C05600FCC895 /* FolderDetailPanelView.swift */; };
+		8407CAD82FF4C05600FCC895 /* ViewUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CAD72FF4C05600FCC895 /* ViewUtils.swift */; };
+		84DEEC642FF76A1500129771 /* HomebrewPackageTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DEEC602FF76A1500129771 /* HomebrewPackageTracker.swift */; };
+		84DEEC652FF76A1500129771 /* PipPackageTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DEEC632FF76A1500129771 /* PipPackageTracker.swift */; };
+		84DEEC662FF76A1500129771 /* NpmPackageTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DEEC612FF76A1500129771 /* NpmPackageTracker.swift */; };
+		84DEEC672FF76A1500129771 /* PackageTrackerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DEEC622FF76A1500129771 /* PackageTrackerProtocol.swift */; };
+		FB1001000000000000000001 /* DeskUtilsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1001000000000000000001 /* DeskUtilsApp.swift */; };
+		FB1002000000000000000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1002000000000000000002 /* ContentView.swift */; };
+		FB1003000000000000000003 /* SoftwareItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1003000000000000000003 /* SoftwareItem.swift */; };
+		FB1004000000000000000004 /* SoftwareSource+UI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1004000000000000000004 /* SoftwareSource+UI.swift */; };
+		FB1005000000000000000005 /* SoftwareViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1005000000000000000005 /* SoftwareViewModel.swift */; };
+		FB1006000000000000000006 /* ShellHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1006000000000000000006 /* ShellHelper.swift */; };
+		FB100A00000000000000000A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA100A00000000000000000A /* Assets.xcassets */; };
+		FB1012000000000000000012 /* AppTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1012000000000000000012 /* AppTracker.swift */; };
+		FB1013000000000000000013 /* ScanResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1013000000000000000013 /* ScanResult.swift */; };
+		FB1014000000000000000014 /* AppManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1014000000000000000014 /* AppManager.swift */; };
+		FB1015000000000000000015 /* PackageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1015000000000000000015 /* PackageManager.swift */; };
+		FB1016000000000000000016 /* FolderItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1016000000000000000016 /* FolderItem.swift */; };
+		FB1017000000000000000017 /* FolderTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1017000000000000000017 /* FolderTracker.swift */; };
+		FB1018000000000000000018 /* FolderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1018000000000000000018 /* FolderManager.swift */; };
+		FB1019000000000000000019 /* ManageFoldersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1019000000000000000019 /* ManageFoldersViewModel.swift */; };
+		FB101B00000000000000001B /* PanelTopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA101B00000000000000001B /* PanelTopBar.swift */; };
+		FB101C00000000000000001C /* PackageTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA101C00000000000000001C /* PackageTracker.swift */; };
+		FB101D00000000000000001D /* FolderScan.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA101D00000000000000001D /* FolderScan.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		8407CAB12FF4C02F00FCC895 /* DashboardCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCard.swift; sourceTree = "<group>"; };
+		8407CAB22FF4C02F00FCC895 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
+		8407CAB52FF4C03D00FCC895 /* FolderManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderManagerView.swift; sourceTree = "<group>"; };
+		8407CAB72FF4C04800FCC895 /* SoftwareDetailPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareDetailPanelView.swift; sourceTree = "<group>"; };
+		8407CAB82FF4C04800FCC895 /* SoftwareSecondPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareSecondPanelView.swift; sourceTree = "<group>"; };
+		8407CAB92FF4C04800FCC895 /* DependenciesCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependenciesCard.swift; sourceTree = "<group>"; };
+		8407CABA2FF4C04800FCC895 /* DetailsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCard.swift; sourceTree = "<group>"; };
+		8407CABB2FF4C04800FCC895 /* FlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowLayout.swift; sourceTree = "<group>"; };
+		8407CABC2FF4C04800FCC895 /* HeaderCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCard.swift; sourceTree = "<group>"; };
+		8407CABD2FF4C04800FCC895 /* MetadataCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataCard.swift; sourceTree = "<group>"; };
+		8407CABE2FF4C04800FCC895 /* RevealInFinderButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RevealInFinderButton.swift; sourceTree = "<group>"; };
+		8407CABF2FF4C04800FCC895 /* SoftwareFirstPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareFirstPanelView.swift; sourceTree = "<group>"; };
+		8407CAC02FF4C04800FCC895 /* SoftwareManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareManagerView.swift; sourceTree = "<group>"; };
+		8407CAC12FF4C04800FCC895 /* SourceBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SourceBadge.swift; sourceTree = "<group>"; };
+		8407CACD2FF4C05600FCC895 /* CardContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardContainer.swift; sourceTree = "<group>"; };
+		8407CACE2FF4C05600FCC895 /* DetailRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRow.swift; sourceTree = "<group>"; };
+		8407CAD12FF4C05600FCC895 /* FolderFirstPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderFirstPanelView.swift; sourceTree = "<group>"; };
+		8407CAD32FF4C05600FCC895 /* FolderSecondPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderSecondPanelView.swift; sourceTree = "<group>"; };
+		8407CAD52FF4C05600FCC895 /* FolderDetailPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderDetailPanelView.swift; sourceTree = "<group>"; };
+		8407CAD72FF4C05600FCC895 /* ViewUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewUtils.swift; sourceTree = "<group>"; };
+		84DEEC602FF76A1500129771 /* HomebrewPackageTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomebrewPackageTracker.swift; sourceTree = "<group>"; };
+		84DEEC612FF76A1500129771 /* NpmPackageTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NpmPackageTracker.swift; sourceTree = "<group>"; };
+		84DEEC622FF76A1500129771 /* PackageTrackerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageTrackerProtocol.swift; sourceTree = "<group>"; };
+		84DEEC632FF76A1500129771 /* PipPackageTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipPackageTracker.swift; sourceTree = "<group>"; };
+		FA1001000000000000000001 /* DeskUtilsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskUtilsApp.swift; sourceTree = "<group>"; };
+		FA1002000000000000000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		FA1003000000000000000003 /* SoftwareItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareItem.swift; sourceTree = "<group>"; };
+		FA1004000000000000000004 /* SoftwareSource+UI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SoftwareSource+UI.swift"; sourceTree = "<group>"; };
+		FA1005000000000000000005 /* SoftwareViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareViewModel.swift; sourceTree = "<group>"; };
+		FA1006000000000000000006 /* ShellHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShellHelper.swift; sourceTree = "<group>"; };
+		FA100A00000000000000000A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FA100B00000000000000000B /* DeskUtils.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DeskUtils.entitlements; sourceTree = "<group>"; };
+		FA100C00000000000000000C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA100D00000000000000000D /* DeskUtils.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeskUtils.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA1012000000000000000012 /* AppTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTracker.swift; sourceTree = "<group>"; };
+		FA1013000000000000000013 /* ScanResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanResult.swift; sourceTree = "<group>"; };
+		FA1014000000000000000014 /* AppManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppManager.swift; sourceTree = "<group>"; };
+		FA1015000000000000000015 /* PackageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageManager.swift; sourceTree = "<group>"; };
+		FA1016000000000000000016 /* FolderItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderItem.swift; sourceTree = "<group>"; };
+		FA1017000000000000000017 /* FolderTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderTracker.swift; sourceTree = "<group>"; };
+		FA1018000000000000000018 /* FolderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderManager.swift; sourceTree = "<group>"; };
+		FA1019000000000000000019 /* ManageFoldersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManageFoldersViewModel.swift; sourceTree = "<group>"; };
+		FA101B00000000000000001B /* PanelTopBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelTopBar.swift; sourceTree = "<group>"; };
+		FA101C00000000000000001C /* PackageTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageTracker.swift; sourceTree = "<group>"; };
+		FA101D00000000000000001D /* FolderScan.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderScan.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FD1002000000000000000002 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8407CAAE2FF4BDB400FCC895 /* SoftwareManagerView */ = {
+			isa = PBXGroup;
+			children = (
+				8407CAC02FF4C04800FCC895 /* SoftwareManagerView.swift */,
+				8407CABF2FF4C04800FCC895 /* SoftwareFirstPanelView.swift */,
+				8407CAB82FF4C04800FCC895 /* SoftwareSecondPanelView.swift */,
+				8407CAB72FF4C04800FCC895 /* SoftwareDetailPanelView.swift */,
+				8407CAB92FF4C04800FCC895 /* DependenciesCard.swift */,
+				8407CABA2FF4C04800FCC895 /* DetailsCard.swift */,
+				8407CABB2FF4C04800FCC895 /* FlowLayout.swift */,
+				8407CABC2FF4C04800FCC895 /* HeaderCard.swift */,
+				8407CABD2FF4C04800FCC895 /* MetadataCard.swift */,
+				8407CABE2FF4C04800FCC895 /* RevealInFinderButton.swift */,
+				8407CAC12FF4C04800FCC895 /* SourceBadge.swift */,
+			);
+			path = SoftwareManagerView;
+			sourceTree = "<group>";
+		};
+		8407CAAF2FF4BDCE00FCC895 /* FolderManagerView */ = {
+			isa = PBXGroup;
+			children = (
+				8407CAB52FF4C03D00FCC895 /* FolderManagerView.swift */,
+				8407CAD12FF4C05600FCC895 /* FolderFirstPanelView.swift */,
+				8407CAD32FF4C05600FCC895 /* FolderSecondPanelView.swift */,
+				8407CAD52FF4C05600FCC895 /* FolderDetailPanelView.swift */,
+			);
+			path = FolderManagerView;
+			sourceTree = "<group>";
+		};
+		8407CAB02FF4BDDB00FCC895 /* DashboardView */ = {
+			isa = PBXGroup;
+			children = (
+				8407CAB12FF4C02F00FCC895 /* DashboardCard.swift */,
+				8407CAB22FF4C02F00FCC895 /* DashboardView.swift */,
+			);
+			path = DashboardView;
+			sourceTree = "<group>";
+		};
+		FC1001000000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				FC1002000000000000000002 /* DeskUtils */,
+				FC1007000000000000000007 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FC1002000000000000000002 /* DeskUtils */ = {
+			isa = PBXGroup;
+			children = (
+				FA1002000000000000000002 /* ContentView.swift */,
+				FA1001000000000000000001 /* DeskUtilsApp.swift */,
+				FC1008000000000000000008 /* Keys */,
+				FC1009000000000000000009 /* Actors */,
+				FC1003000000000000000003 /* Models */,
+				FC1004000000000000000004 /* ViewModels */,
+				FC1006000000000000000006 /* Views */,
+				FA100A00000000000000000A /* Assets.xcassets */,
+				FA100B00000000000000000B /* DeskUtils.entitlements */,
+				FA100C00000000000000000C /* Info.plist */,
+			);
+			path = DeskUtils;
+			sourceTree = "<group>";
+		};
+		FC1003000000000000000003 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FA1003000000000000000003 /* SoftwareItem.swift */,
+				FA1004000000000000000004 /* SoftwareSource+UI.swift */,
+				FA1016000000000000000016 /* FolderItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FC1004000000000000000004 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				FA1005000000000000000005 /* SoftwareViewModel.swift */,
+				FA1019000000000000000019 /* ManageFoldersViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		FC1006000000000000000006 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8407CACD2FF4C05600FCC895 /* CardContainer.swift */,
+				FA101B00000000000000001B /* PanelTopBar.swift */,
+				8407CACE2FF4C05600FCC895 /* DetailRow.swift */,
+				8407CAD72FF4C05600FCC895 /* ViewUtils.swift */,
+				8407CAB02FF4BDDB00FCC895 /* DashboardView */,
+				8407CAAF2FF4BDCE00FCC895 /* FolderManagerView */,
+				8407CAAE2FF4BDB400FCC895 /* SoftwareManagerView */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FC1007000000000000000007 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FA100D00000000000000000D /* DeskUtils.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FC1008000000000000000008 /* Keys */ = {
+			isa = PBXGroup;
+			children = (
+				84DEEC602FF76A1500129771 /* HomebrewPackageTracker.swift */,
+				84DEEC612FF76A1500129771 /* NpmPackageTracker.swift */,
+				84DEEC622FF76A1500129771 /* PackageTrackerProtocol.swift */,
+				84DEEC632FF76A1500129771 /* PipPackageTracker.swift */,
+				FA1012000000000000000012 /* AppTracker.swift */,
+				FA1006000000000000000006 /* ShellHelper.swift */,
+				FA1013000000000000000013 /* ScanResult.swift */,
+				FA101C00000000000000001C /* PackageTracker.swift */,
+				FA1017000000000000000017 /* FolderTracker.swift */,
+				FA101D00000000000000001D /* FolderScan.swift */,
+			);
+			path = Keys;
+			sourceTree = "<group>";
+		};
+		FC1009000000000000000009 /* Actors */ = {
+			isa = PBXGroup;
+			children = (
+				FA1014000000000000000014 /* AppManager.swift */,
+				FA1015000000000000000015 /* PackageManager.swift */,
+				FA1018000000000000000018 /* FolderManager.swift */,
+			);
+			path = Actors;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FE1001000000000000000001 /* DeskUtils */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CL1002000000000000000002 /* Build configuration list for PBXNativeTarget "DeskUtils" */;
+			buildPhases = (
+				FD1001000000000000000001 /* Sources */,
+				FD1002000000000000000002 /* Frameworks */,
+				FD1003000000000000000003 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DeskUtils;
+			productName = DeskUtils;
+			productReference = FA100D00000000000000000D /* DeskUtils.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		83CBB9F71A601CBA00E9B192 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 2630;
+				TargetAttributes = {
+					FE1001000000000000000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = CL1001000000000000000001 /* Build configuration list for PBXProject "DeskUtils" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FC1001000000000000000001;
+			productRefGroup = FC1007000000000000000007 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FE1001000000000000000001 /* DeskUtils */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FD1003000000000000000003 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB100A00000000000000000A /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FD1001000000000000000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FB1001000000000000000001 /* DeskUtilsApp.swift in Sources */,
+				8407CAB32FF4C02F00FCC895 /* DashboardView.swift in Sources */,
+				8407CAB42FF4C02F00FCC895 /* DashboardCard.swift in Sources */,
+				FB1002000000000000000002 /* ContentView.swift in Sources */,
+				FB1003000000000000000003 /* SoftwareItem.swift in Sources */,
+				FB1004000000000000000004 /* SoftwareSource+UI.swift in Sources */,
+				FB1005000000000000000005 /* SoftwareViewModel.swift in Sources */,
+				FB1006000000000000000006 /* ShellHelper.swift in Sources */,
+				8407CAB62FF4C03D00FCC895 /* FolderManagerView.swift in Sources */,
+				8407CAD22FF4C05600FCC895 /* FolderFirstPanelView.swift in Sources */,
+				8407CAD42FF4C05600FCC895 /* FolderSecondPanelView.swift in Sources */,
+				8407CAD62FF4C05600FCC895 /* FolderDetailPanelView.swift in Sources */,
+				FB1012000000000000000012 /* AppTracker.swift in Sources */,
+				FB1013000000000000000013 /* ScanResult.swift in Sources */,
+				FB101C00000000000000001C /* PackageTracker.swift in Sources */,
+				FB1014000000000000000014 /* AppManager.swift in Sources */,
+				FB1015000000000000000015 /* PackageManager.swift in Sources */,
+				FB1016000000000000000016 /* FolderItem.swift in Sources */,
+				FB1017000000000000000017 /* FolderTracker.swift in Sources */,
+				FB101D00000000000000001D /* FolderScan.swift in Sources */,
+				FB1018000000000000000018 /* FolderManager.swift in Sources */,
+				8407CAC22FF4C04800FCC895 /* SoftwareManagerView.swift in Sources */,
+				8407CAC32FF4C04800FCC895 /* DependenciesCard.swift in Sources */,
+				8407CAC42FF4C04800FCC895 /* MetadataCard.swift in Sources */,
+				8407CAC52FF4C04800FCC895 /* SoftwareDetailPanelView.swift in Sources */,
+				8407CAC62FF4C04800FCC895 /* SourceBadge.swift in Sources */,
+				8407CAC72FF4C04800FCC895 /* HeaderCard.swift in Sources */,
+				8407CAC82FF4C04800FCC895 /* RevealInFinderButton.swift in Sources */,
+				8407CAC92FF4C04800FCC895 /* SoftwareFirstPanelView.swift in Sources */,
+				84DEEC642FF76A1500129771 /* HomebrewPackageTracker.swift in Sources */,
+				84DEEC652FF76A1500129771 /* PipPackageTracker.swift in Sources */,
+				84DEEC662FF76A1500129771 /* NpmPackageTracker.swift in Sources */,
+				84DEEC672FF76A1500129771 /* PackageTrackerProtocol.swift in Sources */,
+				8407CACA2FF4C04800FCC895 /* FlowLayout.swift in Sources */,
+				8407CACB2FF4C04800FCC895 /* DetailsCard.swift in Sources */,
+				8407CACC2FF4C04800FCC895 /* SoftwareSecondPanelView.swift in Sources */,
+				FB1019000000000000000019 /* ManageFoldersViewModel.swift in Sources */,
+				8407CACF2FF4C05600FCC895 /* CardContainer.swift in Sources */,
+				8407CAD02FF4C05600FCC895 /* DetailRow.swift in Sources */,
+				8407CAD82FF4C05600FCC895 /* ViewUtils.swift in Sources */,
+				FB101B00000000000000001B /* PanelTopBar.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		CF1001000000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CF1002000000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		CF1003000000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_GCD_PERFORMANCE = NO;
+				CODE_SIGN_ENTITLEMENTS = DeskUtils/DeskUtils.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = DeskUtils/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.litetrace.DeskUtils;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		CF1004000000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_GCD_PERFORMANCE = NO;
+				CODE_SIGN_ENTITLEMENTS = DeskUtils/DeskUtils.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = YES;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = DeskUtils/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.litetrace.DeskUtils;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CL1001000000000000000001 /* Build configuration list for PBXProject "DeskUtils" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CF1001000000000000000001 /* Debug */,
+				CF1002000000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CL1002000000000000000002 /* Build configuration list for PBXNativeTarget "DeskUtils" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CF1003000000000000000003 /* Debug */,
+				CF1004000000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
+}
