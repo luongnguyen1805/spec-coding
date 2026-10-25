@@ -14,10 +14,10 @@ extension FolderManagerView {
                     HStack {
                         Text(viewModel.selectedTopFolder!.name)
                             .lineLimit(1)
-                            .font(.system(size: 15, weight: .bold))
+                            .font(.defaultFontBold)
                         Spacer()
                         Text(countText)
-                            .font(.system(size: 13).monospacedDigit())
+                            .font(.defaultFont.monospacedDigit())
                             .foregroundStyle(.secondary)
                     }
                     .padding(.all, 20)
@@ -58,10 +58,10 @@ private struct BigFolderRowView: View {
                 .foregroundStyle(.yellow)
             Text(folder.name)
                 .lineLimit(1)
-                .font(.system(size: 15))
+                .font(.defaultFont)
             Spacer()
             Text(ViewUtils.formattedFolderSummary(fileCount: folder.fileCount, sizeBytes: folder.sizeBytes))
-                .font(.system(size: 13).monospacedDigit())
+                .font(.defaultFont.monospacedDigit())
                 .foregroundStyle(.secondary)
         }
         .padding(.all, 5)

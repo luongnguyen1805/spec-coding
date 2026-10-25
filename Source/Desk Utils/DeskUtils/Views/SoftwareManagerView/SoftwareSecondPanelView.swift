@@ -9,10 +9,10 @@ extension SoftwareManagerView {
             HStack {
                 Text(viewModel.selectedCategory?.rawValue ?? "All Items")
                     .lineLimit(1)
-                    .font(.system(size: 15, weight: .bold))
+                    .font(.defaultFontBold)
                 Spacer()
                 Text(countText)
-                    .font(.system(size: 13).monospacedDigit())
+                    .font(.defaultFont.monospacedDigit())
                     .foregroundStyle(.secondary)
             }
             .padding(.all, 20)
@@ -76,11 +76,11 @@ struct AppRowView: View {
                 .frame(width: 20)
             VStack(alignment: .leading, spacing: 2) {
                 Text(item.name)
-                    .font(.system(size: 15))
+                    .font(.defaultFont)
                     .lineLimit(1)
                 if let version = item.version {
                     Text("v\(version)")
-                        .font(.system(size: 13))
+                        .font(.defaultFont)
                         .foregroundStyle(.secondary)
                 }
             }

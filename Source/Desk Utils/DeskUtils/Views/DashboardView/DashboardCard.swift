@@ -15,27 +15,29 @@ struct DashboardCard: View {
                     .frame(width: 48, height: 48)
                     .overlay {
                         Image(systemName: icon)
-                            .font(.system(size: 15))
+                            .font(.defaultFont)
                             .foregroundStyle(.white)
                     }
 
                 VStack(alignment: .leading, spacing: 4) {
                     Text(title)
-                        .font(.system(size: 15, weight: .bold))
+                        .font(.defaultFontBold)
                         .foregroundStyle(.primary)
-                    Text(subtitle)
-                        .font(.system(size: 15))
-                        .foregroundStyle(.secondary)
-                        .lineLimit(2)
+                    if !subtitle.isEmpty {
+                        Text(subtitle)
+                            .font(.defaultFont)
+                            .foregroundStyle(.secondary)
+                            .lineLimit(2)
+                    }
                 }
             }
             .padding(16)
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(Color(nsColor: .controlBackgroundColor))
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+            .clipShape(RoundedRectangle(cornerRadius: 10))
             .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .strokeBorder(Color.secondary.opacity(0.15), lineWidth: 1)
+                RoundedRectangle(cornerRadius: 10)
+                    .strokeBorder(Color.gray, lineWidth: 1)
             )
         }
         .buttonStyle(.plain)

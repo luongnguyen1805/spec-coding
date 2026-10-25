@@ -7,7 +7,7 @@ struct DashboardView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Text("Desktop Utilities")
-                .font(.system(size: 15, weight: .bold))
+                .font(.defaultFontBold)
                 .padding(24)
 
             LazyVGrid(columns: [GridItem(.flexible(), spacing: 16),

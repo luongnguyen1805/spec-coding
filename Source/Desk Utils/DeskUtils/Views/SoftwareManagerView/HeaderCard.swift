@@ -10,21 +10,21 @@ struct HeaderCard: View {
                 .frame(width: 60, height: 60)
                 .overlay {
                     Image(systemName: item.source.iconName)
-                        .font(.system(size: 15))
+                        .font(.defaultFont)
                         .foregroundStyle(.white)
                 }
                 .shadow(color: .black.opacity(0.15), radius: 4, y: 2)
 
             VStack(alignment: .leading, spacing: 6) {
                 Text(item.name)
-                    .font(.system(size: 15, weight: .bold))
+                    .font(.defaultFontBold)
                     .textSelection(.enabled)
 
                 HStack(spacing: 8) {
                     SourceBadge(source: item.source)
                     if let version = item.version {
                         Text("v\(version)")
-                            .font(.system(size: 13))
+                            .font(.defaultFont)
                             .foregroundStyle(.secondary)
                     }
                 }

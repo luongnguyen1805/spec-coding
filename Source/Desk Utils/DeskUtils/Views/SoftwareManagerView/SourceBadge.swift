@@ -5,7 +5,7 @@ struct SourceBadge: View {
 
     var body: some View {
         Text(source.rawValue)
-            .font(.system(size: 15, weight: .medium))
+            .font(.defaultFont)
             .padding(.horizontal, 7)
             .padding(.vertical, 3)
             .background(source.tintColor.opacity(0.15))

@@ -8,7 +8,7 @@ struct DependenciesCard: View {
             FlowLayout(spacing: 6) {
                 ForEach(deps, id: \.self) { dep in
                     Text(dep)
-                        .font(.system(size: 13))
+                        .font(.defaultFont)
                         .padding(.horizontal, 8)
                         .padding(.vertical, 4)
                         .background(Color.secondary.opacity(0.12))

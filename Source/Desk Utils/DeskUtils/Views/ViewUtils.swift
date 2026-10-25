@@ -1,4 +1,10 @@
 import Foundation
+import SwiftUI
+
+extension Font {
+    static let defaultFont = Font.system(size: 15)
+    static let defaultFontBold = Font.system(size: 15, weight: .bold)
+}
 
 enum ViewUtils {
     static func formattedSize(_ bytes: Int64) -> String {

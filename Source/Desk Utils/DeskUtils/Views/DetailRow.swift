@@ -7,10 +7,10 @@ struct DetailRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 2) {
             Text(label)
-                .font(.system(size: 15))
+                .font(.defaultFont)
                 .foregroundStyle(.secondary)
             Text(value)
-                .font(.system(size: 13))
+                .font(.defaultFont)
                 .textSelection(.enabled)
                 .fixedSize(horizontal: false, vertical: true)
         }

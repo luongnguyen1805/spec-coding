@@ -7,7 +7,7 @@ struct CardContainer<Content: View>: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             Text(title)
-                .font(.system(size: 15, weight: .bold))
+                .font(.defaultFontBold)
                 .foregroundStyle(.primary)
             content
         }
@@ -17,7 +17,7 @@ struct CardContainer<Content: View>: View {
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .overlay(
             RoundedRectangle(cornerRadius: 10)
-                .strokeBorder(Color.secondary.opacity(0.2), lineWidth: 1)
+                .strokeBorder(Color.gray, lineWidth: 1)
         )
     }
 }

@@ -55,10 +55,10 @@ private struct DriveRowView: View {
                 .foregroundStyle(.secondary)
             Text(folder.name)
                 .lineLimit(1)
-                .font(.system(size: 15))
+                .font(.defaultFont)
             Spacer()
             Text(ViewUtils.formattedFolderSummary(fileCount: folder.fileCount, sizeBytes: folder.sizeBytes))
-                .font(.system(size: 13).monospacedDigit())
+                .font(.defaultFont.monospacedDigit())
                 .foregroundStyle(.secondary)
         }
         .padding(.all, 5)

@@ -27,7 +27,7 @@ struct PanelTopBar: View {
                 .help(refreshHelp)
             }
         }
-        .font(.system(size: 15))
+        .font(.defaultFont)
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
     }

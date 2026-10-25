@@ -19,10 +19,10 @@ struct DetailsCard: View {
             if let desc = item.description {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("Description")
-                        .font(.system(size: 15))
+                        .font(.defaultFont)
                         .foregroundStyle(.secondary)
                     Text(desc)
-                        .font(.system(size: 13))
+                        .font(.defaultFont)
                         .textSelection(.enabled)
                         .fixedSize(horizontal: false, vertical: true)
                 }

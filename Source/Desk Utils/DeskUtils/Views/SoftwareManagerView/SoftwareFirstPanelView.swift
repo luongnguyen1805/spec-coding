@@ -26,7 +26,7 @@ extension SoftwareManagerView {
                         Section("Warnings") {
                             ForEach(viewModel.scanErrors, id: \.self) { msg in
                                 Label(msg, systemImage: "exclamationmark.triangle.fill")
-                                    .font(.system(size: 15))
+                                    .font(.defaultFont)
                                     .foregroundStyle(.orange)
                                     .lineLimit(2)
                             }
@@ -48,11 +48,11 @@ private struct SidebarRow: View {
         HStack {
             Label(source.rawValue, systemImage: source.iconName)
                 .foregroundStyle(.primary)
-                .font(.system(size: 15))
+                .font(.defaultFont)
             Spacer()
             if count > 0 {
                 Text("\(count)")
-                    .font(.system(size: 13).monospacedDigit())
+                    .font(.defaultFont.monospacedDigit())
                     .padding(.horizontal, 6)
                     .padding(.vertical, 2)
                     .background(Color.secondary.opacity(0.18))

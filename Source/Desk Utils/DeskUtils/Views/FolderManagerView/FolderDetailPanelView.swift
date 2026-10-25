@@ -28,7 +28,7 @@ extension FolderManagerView {
                             
                             CardContainer(title: "Folders") {
                                 Toggle("Only show folders ≥ 100 MB", isOn: $showOnlyLargeFolders)
-                                    .font(.system(size: 15))
+                                    .font(.defaultFont)
                                     .toggleStyle(.checkbox)
                                 FolderTreeView(
                                     folders: displayedSubFolders,
@@ -127,10 +127,10 @@ private struct FolderTreeRow: View {
                 .foregroundStyle(.yellow)
             Text(folder.name)
                 .lineLimit(1)
-                .font(.system(size: 15))
+                .font(.defaultFont)
             Spacer()
             Text(ViewUtils.formattedFolderSummary(fileCount: folder.fileCount, sizeBytes: folder.sizeBytes))
-                .font(.system(size: 13).monospacedDigit())
+                .font(.defaultFont.monospacedDigit())
                 .foregroundStyle(.secondary)
                 .id(folder.sizeRefreshID)
         }
@@ -160,7 +160,7 @@ private struct FolderTreeRow: View {
         } else {
             Button(action: toggleExpanded) {
                 Image(systemName: isExpanded ? "chevron.down" : "chevron.right")
-                    .font(.system(size: 15, weight: .bold))
+                    .font(.defaultFontBold)
                     .foregroundStyle(.secondary)
                     .frame(width: Self.disclosureColumnWidth, alignment: .center)
             }
