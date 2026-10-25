@@ -3,6 +3,12 @@
 
 - Default: System, 15
 
+# Selection
+
+- Row/Card Subview when Selected
+    + Background: Lightgray
+    + No Text color, Tint color change
+
 # Scenes and Windows
 
 - Main scene

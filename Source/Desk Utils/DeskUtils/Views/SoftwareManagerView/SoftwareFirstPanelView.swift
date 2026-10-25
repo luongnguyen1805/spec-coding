@@ -14,11 +14,19 @@ extension SoftwareManagerView {
                     refreshHelp: "Re-scan installed applications"
                 )
                 Divider()
-                List(selection: $viewModel.selectedCategory) {
+                List {
                     Section("Categories") {
                         ForEach(SoftwareSource.allCases, id: \.self) { source in
                             SidebarRow(source: source, count: viewModel.itemCount(for: source))
-                                .tag(source as SoftwareSource?)
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    viewModel.selectedCategory = source
+                                }
+                                .listRowBackground(
+                                    viewModel.selectedCategory == source
+                                        ? Color.gray.opacity(0.15)
+                                        : Color.clear
+                                )
                         }
                     }
 
@@ -59,5 +67,6 @@ private struct SidebarRow: View {
                     .clipShape(Capsule())
             }
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }

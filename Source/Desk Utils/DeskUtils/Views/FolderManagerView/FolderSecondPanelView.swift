@@ -23,17 +23,18 @@ extension FolderManagerView {
                     .padding(.all, 20)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    List(selection: $viewModel.selectedBigFolder) {
+                    List {
                         ForEach(viewModel.bigFolders, id: \.sizeRefreshID) { folder in
                             BigFolderRowView(folder: folder)
                                 .contentShape(Rectangle())
-                                .onTapGesture(count: 2) {
-                                    NSWorkspace.shared.activateFileViewerSelecting([URL(fileURLWithPath: folder.path)])
-                                }
-                                .onTapGesture(count: 1) {
+                                .onTapGesture {
                                     viewModel.selectedBigFolder = folder
                                 }
-                                .tag(folder)
+                                .listRowBackground(
+                                    viewModel.selectedBigFolder?.id == folder.id
+                                        ? Color.gray.opacity(0.15)
+                                        : Color.clear
+                                )
                         }
                     }
                 }
@@ -57,6 +58,7 @@ private struct BigFolderRowView: View {
             Image(systemName: "folder.fill")
                 .foregroundStyle(.yellow)
             Text(folder.name)
+                .foregroundStyle(.primary)
                 .lineLimit(1)
                 .font(.defaultFont)
             Spacer()

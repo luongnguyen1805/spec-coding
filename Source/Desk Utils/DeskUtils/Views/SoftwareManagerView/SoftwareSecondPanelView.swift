@@ -18,9 +18,17 @@ extension SoftwareManagerView {
             .padding(.all, 20)
             .frame(maxWidth: .infinity, alignment: .leading)
 
-            List(viewModel.filteredItems, selection: $viewModel.selectedItem) { item in
+            List(viewModel.filteredItems) { item in
                 AppRowView(item: item)
-                    .tag(item)
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        viewModel.selectedItem = item
+                    }
+                    .listRowBackground(
+                        viewModel.selectedItem?.id == item.id
+                            ? Color.gray.opacity(0.15)
+                            : Color.clear
+                    )
             }
             .listStyle(.sidebar)
             //.searchable(text: $viewModel.searchText, placement: .sidebar, prompt: searchPrompt)
@@ -76,6 +84,7 @@ struct AppRowView: View {
                 .frame(width: 20)
             VStack(alignment: .leading, spacing: 2) {
                 Text(item.name)
+                    .foregroundStyle(.primary)
                     .font(.defaultFont)
                     .lineLimit(1)
                 if let version = item.version {
@@ -87,5 +96,6 @@ struct AppRowView: View {
             Spacer()
         }
         .padding(.vertical, 2)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }

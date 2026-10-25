@@ -14,7 +14,7 @@ extension FolderManagerView {
                     refreshHelp: "Re-scan folders"
                 )
                 Divider().padding(.vertical, 8)
-                List(selection: $viewModel.selectedTopFolder) {
+                List {
                     Section("Drives") {
                         ForEach(viewModel.topFolders, id: \.sizeRefreshID) { folder in
                             DriveRowView(folder: folder)
@@ -25,7 +25,11 @@ extension FolderManagerView {
                                 .onTapGesture(count: 1) {
                                     viewModel.selectedTopFolder = folder
                                 }
-                                .tag(folder)
+                                .listRowBackground(
+                                    viewModel.selectedTopFolder?.id == folder.id
+                                        ? Color.gray.opacity(0.15)
+                                        : Color.clear
+                                )
                         }
                     }
                 }
@@ -54,6 +58,7 @@ private struct DriveRowView: View {
             Image(systemName: "internaldrive")
                 .foregroundStyle(.secondary)
             Text(folder.name)
+                .foregroundStyle(.primary)
                 .lineLimit(1)
                 .font(.defaultFont)
             Spacer()
