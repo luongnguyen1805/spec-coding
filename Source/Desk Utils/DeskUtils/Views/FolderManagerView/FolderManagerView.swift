@@ -11,11 +11,11 @@ struct FolderManagerView: View {
         } content: {
             SecondPanelView(viewModel: viewModel)
                 .navigationTitle("")
-                .navigationSplitViewColumnWidth(min: 320, ideal: 320, max: 500)
+                .navigationSplitViewColumnWidth(min: 350, ideal: 350, max: 500)
         } detail: {
             DetailPanelView(viewModel: viewModel)
                 .navigationTitle("")
-                .navigationSplitViewColumnWidth(min: 380, ideal: 380)
+                .navigationSplitViewColumnWidth(min: 400, ideal: 400)
         }
         .task {
             await viewModel.handleAppear()

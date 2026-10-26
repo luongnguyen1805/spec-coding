@@ -12,9 +12,18 @@ struct DetailsCard: View {
                 DetailRow(label: "Version", value: version)
             }
             if let path = item.installPath {
-                DetailRow(label: "Install Path", value: path)
-                RevealInFinderButton(item: item, viewModel: viewModel)
-                    .padding(.top, 4)
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack(spacing: 4) {
+                        Text("Install Path")
+                            .font(.defaultFont)
+                            .foregroundStyle(.secondary)
+                        RevealInFinderButton(item: item, viewModel: viewModel)
+                    }
+                    Text(path)
+                        .font(.defaultFont)
+                        .textSelection(.enabled)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
             }
             if let desc = item.description {
                 VStack(alignment: .leading, spacing: 4) {

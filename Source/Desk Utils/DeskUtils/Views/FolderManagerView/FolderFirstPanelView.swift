@@ -19,10 +19,7 @@ extension FolderManagerView {
                         ForEach(viewModel.topFolders, id: \.sizeRefreshID) { folder in
                             DriveRowView(folder: folder)
                                 .contentShape(Rectangle())
-                                .onTapGesture(count: 2) {
-                                    NSWorkspace.shared.activateFileViewerSelecting([URL(fileURLWithPath: folder.path)])
-                                }
-                                .onTapGesture(count: 1) {
+                                .onTapGesture {
                                     viewModel.selectedTopFolder = folder
                                 }
                                 .listRowBackground(

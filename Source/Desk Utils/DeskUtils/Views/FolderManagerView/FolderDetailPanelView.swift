@@ -1,3 +1,4 @@
+import AppKit
 import SwiftUI
 
 extension FolderManagerView {
@@ -133,6 +134,15 @@ private struct FolderTreeRow: View {
                 .font(.defaultFont.monospacedDigit())
                 .foregroundStyle(.secondary)
                 .id(folder.sizeRefreshID)
+            Button {
+                NSWorkspace.shared.activateFileViewerSelecting([URL(fileURLWithPath: folder.path)])
+            } label: {
+                Image(systemName: "arrow.right.circle")
+                    .font(.defaultFont)
+            }
+            .buttonStyle(.borderless)
+            .help("Reveal in Finder")
+            .accessibilityLabel("Reveal \(folder.name) in Finder")
         }
         .padding(.trailing, 6)
         .padding(.vertical, 6)
@@ -140,10 +150,7 @@ private struct FolderTreeRow: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .background(isSelected ? Color.gray.opacity(0.15) : Color.clear, in: RoundedRectangle(cornerRadius: 6))
         .contentShape(Rectangle())
-        .onTapGesture(count: 2) {
-            NSWorkspace.shared.activateFileViewerSelecting([URL(fileURLWithPath: folder.path)])
-        }
-        .onTapGesture(count: 1) {
+        .onTapGesture {
             selectedFolderID = folder.id
             guard !sortedChildren.isEmpty else { return }
             toggleExpanded()

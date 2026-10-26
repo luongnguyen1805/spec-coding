@@ -20,16 +20,15 @@ struct RevealInFinderButton: View {
                     ProgressView()
                         .scaleEffect(0.7)
                         .frame(width: 14, height: 14)
-                    Text("Locating...")
                 } else {
-                    Label("Reveal in Finder", systemImage: "folder")
-                        .padding(.all, 5)
+                    Image(systemName: "arrow.right.circle")
+                        .font(.defaultFont)
                 }
             }
         }
         .disabled(isLocating || item.installPath == nil)
-        .buttonStyle(.bordered)
-        .controlSize(.small)
+        .buttonStyle(.borderless)
+        .accessibilityLabel("Reveal \(item.name) in Finder")
         .help(helpText)
         .alert("Cannot Locate Folder", isPresented: $showError) {
             Button("OK", role: .cancel) {}

@@ -1,3 +1,4 @@
+import AppKit
 import SwiftUI
 
 extension FolderManagerView {
@@ -65,6 +66,15 @@ private struct BigFolderRowView: View {
             Text(ViewUtils.formattedFolderSummary(fileCount: folder.fileCount, sizeBytes: folder.sizeBytes))
                 .font(.defaultFont.monospacedDigit())
                 .foregroundStyle(.secondary)
+            Button {
+                NSWorkspace.shared.activateFileViewerSelecting([URL(fileURLWithPath: folder.path)])
+            } label: {
+                Image(systemName: "arrow.right.circle")
+                    .font(.defaultFont)
+            }
+            .buttonStyle(.borderless)
+            .help("Reveal in Finder")
+            .accessibilityLabel("Reveal \(folder.name) in Finder")
         }
         .padding(.all, 5)
         .frame(maxWidth: .infinity, alignment: .leading)
