@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "defaultMode": "auto",
+    "deny": [
+      "Read(~/.ssh/**)",
+      "Edit(~/.ssh/**)",
+
+      "Read(~/.aws/**)",
+      "Edit(~/.aws/**)",
+
+      "Read(~/.gnupg/**)",
+      "Edit(~/.gnupg/**)",
+
+      "Read(~/Library/Keychains/**)",
+      "Edit(~/Library/Keychains/**)",
+
+      "Bash(sudo *)",
+      "Bash(rm -rf /)",
+      "Bash(chmod 777 *)"
+    ],
+    "disableBypassPermissionsMode": "disable"
+  },
+  "sandbox": {
+    "enabled": true,
+    "autoAllowBashIfSandboxed": true,
+    "allowUnsandboxedCommands": true,
+    "filesystem": {
+      "denyRead": [
+        "~/.ssh",
+        "~/.aws",
+        "~/.gnupg",
+        "~/Library/Keychains"
+      ]
+    },
+    "network": {
+      "allowedDomains": ["*"]
+    }
+  },
+  "env": {
+    "CLAUDE_CODE_MAX_CONCURRENT_SUBAGENTS": "3",
+    "CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH": "1",
+    "CLAUDE_CODE_MAX_SUBAGENTS_PER_SESSION": "5"
+  }  
+}

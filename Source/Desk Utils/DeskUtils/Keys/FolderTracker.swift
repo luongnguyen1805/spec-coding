@@ -38,6 +38,17 @@ class FolderTracker: @unchecked Sendable {
     private var onComplete: (@Sendable ([String: FolderItem]) -> Void)?
     private var isScanning = false
     private let fileManager = FileManager.default
+
+    /// Written from any thread by `stop()` while the worker loop is running, so it is
+    /// guarded by its own lock rather than by `workerQueue` (which is busy with the scan).
+    private let cancelLock = NSLock()
+    private var cancelRequested = false
+
+    private var isCancelRequested: Bool {
+        cancelLock.lock()
+        defer { cancelLock.unlock() }
+        return cancelRequested
+    }
     
     private let ignoreFolderNames = [".nofollow", ".resolve", ".vol", ".Spotlight-V100", ".Trashes", ".TemporaryItems", ".fseventsd", ".DocumentRevisions-V100"]
     private let ignoreFileNames = [".DS_Store", ".VolumeIcon.icns", ".apdisk", ".localized"]
@@ -73,6 +84,7 @@ class FolderTracker: @unchecked Sendable {
             }
 
             self.isScanning = true
+            self.setCancelRequested(false)
             self.onReport = onReport
             self.onComplete = onComplete
 
@@ -87,8 +99,14 @@ class FolderTracker: @unchecked Sendable {
             var lastReportTime = Date()
             var lastPersistTime = Date()
             var currentIndex = 0
+            var wasCancelled = false
 
             while currentIndex < self.scanningFolders.count {
+
+                if self.isCancelRequested {
+                    wasCancelled = true
+                    break
+                }
 
                 autoreleasepool {
                     if Date().timeIntervalSince(lastReportTime) >= 1.0 {
@@ -128,6 +146,16 @@ class FolderTracker: @unchecked Sendable {
 
             }
 
+            if wasCancelled {
+                // Keep only the unprocessed folders so the next scan resumes from here.
+                self.scanningFolders = Array(self.scanningFolders[currentIndex...])
+                self.persistState()
+                self.onReport = nil
+                self.onComplete = nil
+                self.isScanning = false
+                return
+            }
+
             let finalSnapshot = self.makeSnapshot()
             self.onReport?(finalSnapshot)
             self.onComplete?(finalSnapshot)
@@ -138,7 +166,20 @@ class FolderTracker: @unchecked Sendable {
         }
     }
 
+    /// Requests the running scan to stop before its next folder. The worker persists the
+    /// remaining queue for resumption and sends no further report or completion.
+    /// No-op when idle: the flag is reset when the next scan starts.
+    func stop() {
+        setCancelRequested(true)
+    }
+
     // MARK: - Private
+
+    private func setCancelRequested(_ value: Bool) {
+        cancelLock.lock()
+        cancelRequested = value
+        cancelLock.unlock()
+    }
 
     private func makeSnapshot() -> [String: FolderItem] {
         scannedFolders.mapValues { $0.toFolderItem(maxDepth: Self.maxReportedDepth) }

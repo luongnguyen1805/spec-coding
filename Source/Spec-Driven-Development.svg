@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1100" height="480" viewBox="0 0 1100 480" role="img" aria-labelledby="title desc">
+  <title id="title">Spec-Driven Software Development</title>
+  <desc id="desc">Development progresses from Scratch through ordered clarification steps to simple Current Software and then complex Goal Software. The specification defines the goal.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#d97706"/></marker>
+    <marker id="spec-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#475569"/></marker>
+  </defs>
+  <rect width="1100" height="480" rx="20" fill="#fff"/>
+  <g font-family="Arial, Helvetica, sans-serif" text-anchor="middle" fill="#172033">
+    <text x="550" y="49" font-size="28" font-weight="700">Spec-Driven Software Development</text>
+    <text x="550" y="80" font-size="16" fill="#64748b">Spec defines the goal · Clar guides each step</text>
+
+    <g stroke="#94a3b8" stroke-width="3" fill="#f8fafc" stroke-linejoin="round">
+      <path d="M75 283 105 265H255L225 283Z"/>
+      <path d="M75 283H225V320H75Z"/>
+      <path d="M225 283 255 265V302L225 320Z"/>
+    </g>
+    <text x="165" y="360" font-size="21" font-weight="700">Scratch</text>
+
+    <g stroke="#2563eb" stroke-width="3" fill="#eff6ff" stroke-linejoin="round">
+      <rect x="450" y="283" width="180" height="37" rx="4"/>
+      <rect x="478" y="203" width="39" height="80" rx="3"/>
+    </g>
+    <text x="540" y="360" font-size="21" font-weight="700">Current Software</text>
+    <text x="540" y="386" font-size="15" fill="#64748b">Working increment</text>
+
+    <g stroke="#15803d" stroke-width="3" fill="#f0fdf4" stroke-linejoin="round">
+      <rect x="818" y="283" width="208" height="37" rx="4"/>
+      <rect x="842" y="211" width="36" height="72" rx="3"/>
+      <circle cx="860" cy="191" r="20"/>
+      <rect x="948" y="188" width="35" height="95" rx="3"/>
+      <path d="M935 188 965 143 996 188Z"/>
+      <path d="M878 251H948" fill="none"/>
+    </g>
+    <text x="922" y="360" font-size="21" font-weight="700">Goal Software</text>
+    <text x="922" y="386" font-size="15" fill="#64748b">Required system</text>
+
+    <g fill="none" stroke="#d97706" stroke-width="3" marker-end="url(#arrow)">
+      <path d="M265 247Q350 170 442 247"/>
+      <path d="M642 247Q725 170 808 247"/>
+    </g>
+    <g font-size="18" font-weight="700" fill="#b45309">
+      <text x="352" y="192">Clar 1</text>
+      <text x="725" y="192">Clar 2…N</text>
+    </g>
+
+    <rect x="831" y="101" width="92" height="39" rx="7" fill="#f1f5f9" stroke="#475569" stroke-width="2"/>
+    <text x="877" y="127" font-size="18" font-weight="700">Spec</text>
+    <path d="M923 121Q982 117 977 149" fill="none" stroke="#475569" stroke-width="2" marker-end="url(#spec-arrow)"/>
+  </g>
+</svg>

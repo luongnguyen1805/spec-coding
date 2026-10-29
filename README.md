@@ -1,133 +1,78 @@
-# Spec-Coding: Authority-Driven & Clarified Development
+# Spec-Driven Software Development
 
-Welcome to the **Spec-Coding** practice repository! This project serves as an introductory guide, blueprint, and template for implementing **Spec-Coding**—a structured development methodology optimized for both human engineers and AI agents.
+**Define the goal. Clarify the steps. Build toward it.**
 
-By establishing clear boundaries between specifications, step-by-step guidance, and repository metadata, Spec-Coding maximizes development speed, prevents architectural drift, and ensures unparalleled consistency in AI-assisted code generation.
+AI-SpecCoding is a working repository for developing software with human engineers and AI agents from explicit specifications. It brings together a development workflow, visual explanations, and a SwiftUI macOS application as a practical example.
 
----
+The central idea is simple: **Spec defines what the software should become. Clar defines how to develop toward it.**
 
-## Architectural Concept
+![Spec-driven development: Scratch → Current Software → Goal Software](Spec-Driven-Development.png)
 
-![Architectural Diagram](./Coding-Models.png)
+## The development model
 
-In Spec-Coding, development flows unidirectionally from the specification to implementation, guided by clarifications:
+Software progresses from **Scratch → Current Software → Goal Software**. Each clarification guides an implementation step toward the result defined by the specification.
 
-```text
-       ┌────────────────────────┐
-       │      Source/Specs      │ ◄── [Authoritative Truth]
-       └───────────┬────────────┘
-                   │
-                   │ defines the desired result
-                   ▼
-       ┌────────────────────────┐
-       │      Source/Clars      │ ◄── [Step-by-Step Guidance]
-       └───────────┬────────────┘
-                   │
-                   │ defines how to develop toward that result
-                   ▼
-       ┌────────────────────────┐
-       │     Implementation     │ ◄── [Executable Code]
-       └────────────────────────┘
-```
+| Layer | Question it answers | Responsibility |
+| --- | --- | --- |
+| **Spec** | What should the software be? | Define intended behavior, structure, constraints, and requirements. |
+| **Clar** | How do we develop toward it? | Translate part of the specification into ordered implementation guidance. |
+| **Implementation** | What exists today? | Realize the specification through code and other generated artifacts. |
 
----
+[Source/Specs](Source/Specs) is the authoritative source of truth for output under `Source/`. [Source/Clars](Source/Clars) provides development guidance subordinate to those specifications.
 
-## Repository Layout
+A clarification may describe implementation details, examples, and sequencing. It must not introduce requirements absent from the specification. When implementation or clarification conflicts with the specification, correct the conflicting artifact.
 
-A typical Spec-Coding repository is organized with an explicit separation of specification, development step clarifications, and executable code:
+If the intended software changes, change the specification intentionally, then update the affected clarifications and implementation.
 
-```text
-├── README.md               # Repository introduction and overview (this file)
-├── GEMINI.md               # Repository handbook (Specifications, Clarifications, Metadata rules)
-└── Source/                 # The primary workspace for development
-    ├── Specs/              # Authoritative source of truth (Specifications)
-    ├── Clars/              # Implementation sequence and detail guides (Clarifications)
-    │   ├── Index.md        # Entry point and index for all clarifications
-    │   ├── 1-Code organization/
-    │   ├── 2-UI code organization/
-    │   └── ...
-    └── [App Code]          # Actual source code files (e.g., components, backend, etc.)
-```
+## Explore the examples
 
----
+### Coding approaches
 
-## Core Principles
+A visual comparison of human and agent coding, covering manual, agent-assisted, vibe, and specification-driven approaches.
 
-### 1. Specification Authority (`Source/Specs/`)
-The specification layer is the **highest priority artifact** in the codebase.
-* **The Truth:** Every line of code, design asset, and configuration under `Source/` must conform to the models and constraints defined under `Source/Specs/`.
-* **Zero Contradictions:** Generated code or transient artifacts can never redefine or override specifications.
-* **No Accommodation Edits:** Never modify a spec to match or justify a convenient implementation. If a spec needs to change, it must be updated intentionally through an explicit specification-change process first, after which the implementation is updated or regenerated to align.
+![Coding approaches: human coding and agent coding](Coding-Models.png)
 
-*For more details, see the complete [Specification Rules](./GEMINI.md#specification).*
+Follow one example from definition to output:
 
----
+1. [Specification](Source/Specs/Coding%20Models.md) — the diagram’s content, layout, typography, and visual rules.
+2. [Clarification](Source/Clars/1000-Generate%20Coding%20Models.md) — ordered instructions for constructing it.
+3. [HTML implementation](Source/Coding%20Models/index.html) — the diagram built with inline SVG.
+4. [Exported image](Coding-Models.png) — the resulting visual artifact.
 
-### 2. Clarification Sequencing (`Source/Clars/`)
-While specifications define **what the system should be**, clarifications define **how to develop toward that result**.
-* **Step-by-Step Guidance:** Clarifications translate complex specifications into sequenced implementation instructions, code samples, and concrete local configurations.
-* **Dependency & Order:** Clarification directories use an ordering prefix (e.g., `1-Code organization`, `2-UI code organization`). Lower-order clarifications are completed first, establishing dependencies that higher-order steps can safely rely upon.
-* **No New Requirements:** Clarifications must never introduce goals or requirements that are not derived from the specifications.
+To view the HTML version, open `index.html` in `Source/Coding Models` in a browser.
 
-*For more details, see the complete [Clarification Rules](./GEMINI.md#clarification).*
+### DeskUtils
 
----
+[DeskUtils](Source/Desk%20Utils) is a macOS desktop utilities application built with Swift, SwiftUI, and Swift Concurrency. Its specification defines two utilities:
 
-### 3. Metadata Layer (Knowledge, Memory, & Navigation)
-Spec-Coding integrates a lightweight, in-place metadata layer that resides alongside primary files to help AI agents and human contributors efficiently navigate and understand the workspace.
+- **Software Manager:** inspect installed applications and packages from Homebrew, pip, and npm.
+- **Folder Manager:** inspect folder disk usage, with resumable scans and size-based navigation.
 
-```text
-.navigation/    # Answers: "Where should I look?"
-    └── Index.md
-.knowledge/     # Answers: "How does this work?"
-    └── Index.md
-.memory/        # Answers: "What have previous agents learned?"
-    └── Index.md
-```
+The utilities inspect information and reveal locations in Finder. Installation, uninstallation, and deletion are outside their specified scope.
 
-* **Independent & Non-intrusive:** The metadata layer supplements the code but is never imported or referenced by the primary source code.
-* **Prevents Broad Scans:** Agents use `.navigation/Index.md` to pinpoint specific code files instead of performing expensive full-workspace scans.
-* **Long-Term Preservation:** `.memory` captures operational pitfalls, debugging breakthroughs, and setup quirks that keep future agents from repeating past mistakes.
+The application follows a layered architecture: **Views → ViewModels → Managers → Trackers**, with shared value models.
 
-*For more details, see the complete [Metadata Layer Guide](./GEMINI.md#in-place-knowledge-and-memory).*
+Start with the [application specification](Source/Specs/Desk%20Utils.md) and [UI specification](Source/Specs/UI.md). To work with the implementation, open [DeskUtils.xcodeproj](Source/Desk%20Utils/DeskUtils.xcodeproj) in Xcode on macOS. The project targets macOS 14.0 or later.
 
----
+## Use the workflow
 
-## The Spec-Coding Workflow
+1. **Define the desired result.** Write or refine the applicable specification under `Source/Specs`. Make behavior and constraints explicit enough to review.
+2. **Clarify the next increment.** Add implementation guidance under `Source/Clars`, grounded in the specification.
+3. **Follow dependency order.** Name clarifications using `<Order>-<Clarification-name>`. Lower-order steps establish the foundation for later steps.
+4. **Implement the increment.** Read the relevant specification, clarification, and any local `Specs.md` before changing content.
+5. **Review against the specification.** Check that the output satisfies the intended behavior without adding conflicting assumptions. Distinguish static review from compilation, tests, and runtime verification.
+6. **Repeat toward the goal.** Use the current implementation as the starting point for the next step while keeping the specification authoritative.
 
-Whether you are a developer or an AI agent, you should interact with this repository using the following workflow:
+The same process applies when starting from scratch or extending existing software.
 
-```text
-   ┌─────────────────────────────────────────────────────────┐
-   │ 1. RESEARCH & DISCOVER                                  │
-   │    Identify nearest metadata layer (.navigation/Index)  │
-   │    to locate specifications and relevant code.          │
-   └────────────────────────────┬────────────────────────────┘
-                                │
-                                ▼
-   ┌─────────────────────────────────────────────────────────┐
-   │ 2. CONSULT SPECIFICATIONS                               │
-   │    Read the authoritative model in Source/Specs/.       │
-   └────────────────────────────┬────────────────────────────┘
-                                │
-                                ▼
-   ┌─────────────────────────────────────────────────────────┐
-   │ 3. ALIGN WITH CLARIFICATIONS                            │
-   │    Consult Source/Clars/ for step-by-step instructions  │
-   │    following the defined Order Index (<Order>-<Name>).  │
-   └────────────────────────────┬────────────────────────────┘
-                                │
-                                ▼
-   ┌─────────────────────────────────────────────────────────┐
-   │ 4. EXECUTE & VALIDATE                                   │
-   │    Generate/write code. Verify output does not          │
-   │    contradict Specs/ or introduce hidden assumptions.   │
-   └────────────────────────────┬────────────────────────────┘
-                                │
-                                ▼
-   ┌─────────────────────────────────────────────────────────┐
-   │ 5. UPDATE METADATA                                      │
-   │    Record lessons learned in .memory/ if any major      │
-   │    pitfalls or system insights were discovered.         │
-   └─────────────────────────────────────────────────────────┘
-```
+## Repository guide
+
+| Location | Contents |
+| --- | --- |
+| [Source/Specs](Source/Specs) | Authoritative specifications for the examples. |
+| [Source/Clars](Source/Clars) | Ordered development clarifications. |
+| [Source/Coding Models](Source/Coding%20Models) | HTML and inline SVG coding-approaches diagram. |
+| [Source/Desk Utils](Source/Desk%20Utils) | DeskUtils source code and Xcode project. |
+| [Spec-Driven-Development.png](Spec-Driven-Development.png) | Overview of the development model. |
+| [Coding-Models.png](Coding-Models.png) | Coding-approaches illustration. |
+| [AGENTS.md](AGENTS.md), [CLAUDE.md](CLAUDE.md), [GEMINI.md](GEMINI.md) | Repository instructions for coding agents. |

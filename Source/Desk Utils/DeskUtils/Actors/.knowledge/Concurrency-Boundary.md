@@ -6,6 +6,6 @@
 
 `PackageTracker` and its ecosystem trackers declare `@unchecked Sendable`. This bypasses compiler verification: preserve the absence of shared mutable per-scan state, and review synchronization before adding mutable stored properties.
 
-`FolderManager.startScanning(onReport:onComplete:)` forwards callbacks to `FolderTracker`. The tracker owns mutable scan state and dispatches scanning onto a serial utility `DispatchQueue`. Its persisted-state fetch also accesses tracker state; the actor wrapper alone does not establish synchronization with that queue. Do not infer comprehensive race safety from `@unchecked Sendable`.
+`FolderManager.startScanning(onReport:onComplete:)` forwards callbacks to `FolderTracker`; `stopScanning()` forwards to `FolderTracker.stop()`. The tracker owns mutable scan state and dispatches scanning onto a serial utility `DispatchQueue`. Its persisted-state fetch also accesses tracker state; the actor wrapper alone does not establish synchronization with that queue. Do not infer comprehensive race safety from `@unchecked Sendable`.
 
 `ManageFoldersViewModel` receives reports through explicit main-actor tasks. The current folder API uses callbacks, not `AsyncStream`.

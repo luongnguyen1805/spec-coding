@@ -107,5 +107,8 @@ class ManageFoldersViewModel: ObservableObject {
         consumeTask?.cancel()
         consumeTask = nil
         isScanning = false
+        Task {
+            await folderManager.stopScanning()
+        }
     }
 }

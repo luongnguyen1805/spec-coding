@@ -11,6 +11,10 @@ actor FolderManager {
     ) {
         tracker.scan(onReport: onReport, onComplete: onComplete)
     }
+
+    func stopScanning() {
+        tracker.stop()
+    }
     
     func fetchLoadedFoldersAndInProgressStatus() -> ([String: FolderItem], Bool) {
         tracker.fetchLoadedFoldersAndInProgressStatus()
