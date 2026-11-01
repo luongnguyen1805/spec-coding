@@ -42,6 +42,7 @@ extension SoftwareManagerView {
                     }
                 }
                 .listStyle(.sidebar)
+                .accessibilityIdentifier("software.categories")
             }
             .navigationTitle("Application Manager")
         }

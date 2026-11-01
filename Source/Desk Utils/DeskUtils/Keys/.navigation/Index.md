@@ -1,5 +1,7 @@
 # Keys Navigation
 
+- [FolderSyncTracker.swift](</Users/Workspaces/AI-SpecCoding/Source/Desk Utils/DeskUtils/Keys/FolderSyncTracker.swift>) — folder comparison, bounded file reads, metadata-preserving copies and counterpart deletion; does not traverse symbolic links.
+
 - [AppTracker.swift](/Users/Workspaces/AI-SpecCoding/Source/DeskUtils/Keys/AppTracker.swift) — installed application queries.
 - [PackageTracker.swift](/Users/Workspaces/AI-SpecCoding/Source/DeskUtils/Keys/PackageTracker.swift) — ecosystem availability checks and delegation.
 - [PackageTrackerProtocol.swift](/Users/Workspaces/AI-SpecCoding/Source/DeskUtils/Keys/PackageTrackerProtocol.swift) — synchronous ecosystem query contract.

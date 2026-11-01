@@ -12,6 +12,7 @@ struct PanelTopBar: View {
                 Label("Dashboard", systemImage: "arrow.left")
             }
             .buttonStyle(.plain)
+            .accessibilityIdentifier("navigation.dashboard")
 
             Spacer()
 

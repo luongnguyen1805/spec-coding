@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F51000000000000000000001 /* FolderSyncItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52000000000000000000001 /* FolderSyncItem.swift */; };
+		F51000000000000000000002 /* FolderSyncTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52000000000000000000002 /* FolderSyncTracker.swift */; };
+		F51000000000000000000003 /* FolderSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52000000000000000000003 /* FolderSyncManager.swift */; };
+		F51000000000000000000004 /* FolderSyncViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52000000000000000000004 /* FolderSyncViewModel.swift */; };
+		F51000000000000000000005 /* FolderSyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52000000000000000000005 /* FolderSyncView.swift */; };
 		8407CAB32FF4C02F00FCC895 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CAB22FF4C02F00FCC895 /* DashboardView.swift */; };
 		8407CAB42FF4C02F00FCC895 /* DashboardCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CAB12FF4C02F00FCC895 /* DashboardCard.swift */; };
 		8407CAB62FF4C03D00FCC895 /* FolderManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CAB52FF4C03D00FCC895 /* FolderManagerView.swift */; };
@@ -52,6 +57,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F52000000000000000000001 /* FolderSyncItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FolderSyncItem.swift; path = "/Users/Workspaces/AI-SpecCoding/Source/Desk Utils/DeskUtils/Models/FolderSyncItem.swift"; sourceTree = "<absolute>"; };
+		F52000000000000000000002 /* FolderSyncTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FolderSyncTracker.swift; path = "/Users/Workspaces/AI-SpecCoding/Source/Desk Utils/DeskUtils/Keys/FolderSyncTracker.swift"; sourceTree = "<absolute>"; };
+		F52000000000000000000003 /* FolderSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FolderSyncManager.swift; path = "/Users/Workspaces/AI-SpecCoding/Source/Desk Utils/DeskUtils/Actors/FolderSyncManager.swift"; sourceTree = "<absolute>"; };
+		F52000000000000000000004 /* FolderSyncViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FolderSyncViewModel.swift; path = "/Users/Workspaces/AI-SpecCoding/Source/Desk Utils/DeskUtils/ViewModels/FolderSyncViewModel.swift"; sourceTree = "<absolute>"; };
+		F52000000000000000000005 /* FolderSyncView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FolderSyncView.swift; path = "/Users/Workspaces/AI-SpecCoding/Source/Desk Utils/DeskUtils/Views/FolderSyncView.swift"; sourceTree = "<absolute>"; };
 		8407CAB12FF4C02F00FCC895 /* DashboardCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCard.swift; sourceTree = "<group>"; };
 		8407CAB22FF4C02F00FCC895 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		8407CAB52FF4C03D00FCC895 /* FolderManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderManagerView.swift; sourceTree = "<group>"; };
@@ -152,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				FC1002000000000000000002 /* DeskUtils */,
+				AB0000000000000000000003 /* DeskUtilsUITests */,
 				FC1007000000000000000007 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -176,6 +187,7 @@
 		FC1003000000000000000003 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				F52000000000000000000001 /* FolderSyncItem.swift */,
 				FA1003000000000000000003 /* SoftwareItem.swift */,
 				FA1004000000000000000004 /* SoftwareSource+UI.swift */,
 				FA1016000000000000000016 /* FolderItem.swift */,
@@ -186,6 +198,7 @@
 		FC1004000000000000000004 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				F52000000000000000000004 /* FolderSyncViewModel.swift */,
 				FA1005000000000000000005 /* SoftwareViewModel.swift */,
 				FA1019000000000000000019 /* ManageFoldersViewModel.swift */,
 			);
@@ -195,6 +208,7 @@
 		FC1006000000000000000006 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				F52000000000000000000005 /* FolderSyncView.swift */,
 				8407CACD2FF4C05600FCC895 /* CardContainer.swift */,
 				FA101B00000000000000001B /* PanelTopBar.swift */,
 				8407CACE2FF4C05600FCC895 /* DetailRow.swift */,
@@ -210,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				FA100D00000000000000000D /* DeskUtils.app */,
+				AB0000000000000000000002 /* DeskUtilsUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -217,6 +232,7 @@
 		FC1008000000000000000008 /* Keys */ = {
 			isa = PBXGroup;
 			children = (
+				F52000000000000000000002 /* FolderSyncTracker.swift */,
 				84DEEC602FF76A1500129771 /* HomebrewPackageTracker.swift */,
 				84DEEC612FF76A1500129771 /* NpmPackageTracker.swift */,
 				84DEEC622FF76A1500129771 /* PackageTrackerProtocol.swift */,
@@ -234,6 +250,7 @@
 		FC1009000000000000000009 /* Actors */ = {
 			isa = PBXGroup;
 			children = (
+				F52000000000000000000003 /* FolderSyncManager.swift */,
 				FA1014000000000000000014 /* AppManager.swift */,
 				FA1015000000000000000015 /* PackageManager.swift */,
 				FA1018000000000000000018 /* FolderManager.swift */,
@@ -271,6 +288,7 @@
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 2630;
 				TargetAttributes = {
+					AB0000000000000000000004 = {CreatedOnToolsVersion = 15.0; TestTargetID = FE1001000000000000000001; };
 					FE1001000000000000000001 = {
 						CreatedOnToolsVersion = 15.0;
 					};
@@ -290,6 +308,7 @@
 			projectRoot = "";
 			targets = (
 				FE1001000000000000000001 /* DeskUtils */,
+				AB0000000000000000000004 /* DeskUtilsUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -310,6 +329,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F51000000000000000000001 /* FolderSyncItem.swift in Sources */,
+				F51000000000000000000002 /* FolderSyncTracker.swift in Sources */,
+				F51000000000000000000003 /* FolderSyncManager.swift in Sources */,
+				F51000000000000000000004 /* FolderSyncViewModel.swift in Sources */,
+				F51000000000000000000005 /* FolderSyncView.swift in Sources */,
 				FB1001000000000000000001 /* DeskUtilsApp.swift in Sources */,
 				8407CAB32FF4C02F00FCC895 /* DashboardView.swift in Sources */,
 				8407CAB42FF4C02F00FCC895 /* DashboardCard.swift in Sources */,
@@ -563,6 +587,63 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* UI capture test target */
+		AB0000000000000000000001 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskUtilsCaptureTests.swift; sourceTree = "<group>"; };
+		AB0000000000000000000002 = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DeskUtilsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AB0000000000000000000003 = {isa = PBXGroup; children = (AB0000000000000000000001,); path = DeskUtilsUITests; sourceTree = "<group>"; };
+		AB0000000000000000000004 = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AB0000000000000000000005;
+			buildPhases = (AB0000000000000000000006, AB0000000000000000000007, AB0000000000000000000008,);
+			buildRules = ();
+			dependencies = (AB000000000000000000000A,);
+			name = DeskUtilsUITests;
+			productName = DeskUtilsUITests;
+			productReference = AB0000000000000000000002;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		AB0000000000000000000005 = {isa = XCConfigurationList; buildConfigurations = (AB000000000000000000000C, AB000000000000000000000D,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		AB0000000000000000000006 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (AB0000000000000000000009,); runOnlyForDeploymentPostprocessing = 0; };
+		AB0000000000000000000007 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		AB0000000000000000000008 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+		AB0000000000000000000009 = {isa = PBXBuildFile; fileRef = AB0000000000000000000001; };
+		AB000000000000000000000A = {isa = PBXTargetDependency; target = FE1001000000000000000001; targetProxy = AB000000000000000000000B; };
+		AB000000000000000000000B = {isa = PBXContainerItemProxy; containerPortal = 83CBB9F71A601CBA00E9B192; proxyType = 1; remoteGlobalIDString = FE1001000000000000000001; remoteInfo = DeskUtils; };
+		AB000000000000000000000C = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "-";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_APP_SANDBOX = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/../Frameworks", "@loader_path/../Frameworks",);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.litetrace.DeskUtilsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = DeskUtils;
+			};
+			name = Debug;
+		};
+		AB000000000000000000000D = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "-";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_APP_SANDBOX = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/../Frameworks", "@loader_path/../Frameworks",);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.litetrace.DeskUtilsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = DeskUtils;
+			};
+			name = Release;
+		};
 	};
 	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }

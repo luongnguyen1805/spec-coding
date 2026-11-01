@@ -3,10 +3,11 @@
 
 - DeskUtils: macOS desktop utilities app
 - Swift, SwiftUI, Swift Concurrency
+
 - Independent small utils, one screen per util
     - Software Manager: installed applications and packages
     - Folder Manager: disk usage by folder
-- Read-only: inspect and reveal in Finder; no install, uninstall, delete
+    - Folder Sync: synchronize files between 2 folders
 
 # UI
 
@@ -289,3 +290,8 @@
     - Folder: dispatched worker queue with callbacks
 - Unchecked Sendable trackers: no race-safety guarantee; review before adding mutable state
 - Folder scan must support real cancellation; cancelling the consumer task alone is insufficient
+
+# Folder Sync
+
+- Detail in "Folder Sync.md"
+

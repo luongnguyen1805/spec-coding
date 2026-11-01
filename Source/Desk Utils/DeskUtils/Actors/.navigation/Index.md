@@ -1,5 +1,7 @@
 # Actors Navigation
 
+- [FolderSyncManager.swift](</Users/Workspaces/AI-SpecCoding/Source/Desk Utils/DeskUtils/Actors/FolderSyncManager.swift>) — serializes Folder Sync operations outside the main actor and refreshes comparison results.
+
 - [AppManager.swift](/Users/Workspaces/AI-SpecCoding/Source/DeskUtils/Actors/AppManager.swift) — application scanning and path resolution.
 - [PackageManager.swift](/Users/Workspaces/AI-SpecCoding/Source/DeskUtils/Actors/PackageManager.swift) — concurrent ecosystem scans and result aggregation.
 - [FolderManager.swift](/Users/Workspaces/AI-SpecCoding/Source/DeskUtils/Actors/FolderManager.swift) — folder tracker callbacks and persisted scan status.

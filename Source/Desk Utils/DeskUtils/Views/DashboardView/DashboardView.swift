@@ -3,6 +3,7 @@ import SwiftUI
 struct DashboardView: View {
     @Binding var showSoftwareManager: Bool
     @Binding var showFolderManager: Bool
+    @Binding var showFolderSync: Bool
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -22,6 +23,7 @@ struct DashboardView: View {
                 ) {
                     showSoftwareManager = true
                 }
+                .accessibilityIdentifier("dashboard.software")
                 DashboardCard(
                     title: "Manage Folders",
                     subtitle: "",
@@ -30,6 +32,16 @@ struct DashboardView: View {
                 ) {
                     showFolderManager = true
                 }
+                .accessibilityIdentifier("dashboard.folders")
+                DashboardCard(
+                    title: "Folder Sync",
+                    subtitle: "",
+                    icon: "arrow.left.arrow.right",
+                    color: .green
+                ) {
+                    showFolderSync = true
+                }
+                .accessibilityIdentifier("dashboard.folderSync")
             }
             .padding(.horizontal, 24)
 

@@ -1,5 +1,7 @@
 # Views Navigation
 
+- [FolderSyncView.swift](</Users/Workspaces/AI-SpecCoding/Source/Desk Utils/DeskUtils/Views/FolderSyncView.swift>) — paired difference trees in one scroll view, folder inputs and per-side source actions, including empty-side deletion.
+
 - [DashboardView/DashboardView.swift](/Users/Workspaces/AI-SpecCoding/Source/DeskUtils/Views/DashboardView/DashboardView.swift) — landing screen.
 - [SoftwareManagerView/SoftwareManagerView.swift](/Users/Workspaces/AI-SpecCoding/Source/DeskUtils/Views/SoftwareManagerView/SoftwareManagerView.swift) — software manager screen.
 - [FolderManagerView/FolderManagerView.swift](/Users/Workspaces/AI-SpecCoding/Source/DeskUtils/Views/FolderManagerView/FolderManagerView.swift) — folder manager screen.

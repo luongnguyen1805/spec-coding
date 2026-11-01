@@ -31,6 +31,7 @@ extension FolderManagerView {
                     }
                 }
                 .listStyle(.sidebar)
+                .accessibilityIdentifier("folders.drives")
                 .onAppear {
                     if viewModel.selectedTopFolder == nil {
                         viewModel.selectedTopFolder = viewModel.topFolders.first
