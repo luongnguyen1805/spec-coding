@@ -17,7 +17,7 @@
 - Left and right roots use typed paths
     - Double-click selects text; no folder picker
     - Save the last left and right folder paths in app preferences
-    - Restore saved paths as defaults on the next app launch
+    - Restore on utility launch according to `lastProfile`
 
 - Folder Input Field
     - Flexible width; height: 50
@@ -25,8 +25,43 @@
     - No top, left, or right border
     - Black bottom border; width: 1
     - Single-click focuses the field for editing
-    - Black insertion cursor with native macOS editing behavior
+    - Native macOS editing behavior
     - Placeholder text: "Left Folder", "Right Folder"
+
+# Sync Profiles
+
+- Profile content: left folder, right folder, and custom ignore patterns
+
+```text
+LeftFolder=
+Right Folder=
+Ignores=
+```
+
+- Profile storage: Application Support → DeskUtils → Sync Profiles → `{name}.txt`
+    - Migrate profiles from the previous Desk Utils folder without overwriting existing profiles
+- `lastProfile`: selected profile stored in app preferences; nil means no profile
+- On utility launch
+    - `lastProfile` is nil → load left folder, right folder, and ignores from app preferences
+    - Otherwise → load fields from `lastProfile`
+
+- Profile selector in the top-right corner, with an adjacent add-icon button
+    - Minimum width: 200 points
+    - Expand to fit the selected profile name
+    - System font: 15 points
+    - List saved profiles and a "None" option
+    - No selected profile → show "None"
+    - Selected profile → show its name only, without `.txt`
+- Add button → alert requesting a profile name
+    - OK → create `{name}.txt` with the current left folder, right folder, and ignores
+        - Select the saved profile and persist it as `lastProfile` after successful creation
+    - Cancel → save nothing
+- Selecting a profile
+    - Set `lastProfile` to the selected profile in app preferences
+    - Populate the folder and filter fields from the profile
+    - Apply comparison changes only when Refresh is clicked
+- Selecting "None"
+    - Set `lastProfile` to nil in app preferences
 
 # Comparison
 
@@ -74,6 +109,7 @@
 - Layout
 
 ```
+                                           (profile-selector) <add>
  (filter-field)
  (left-text-field)_____ <button-refresh> _____(right-text-field)
  (tree-of-files-folders)        |        (tree-of-files-folders)
@@ -88,6 +124,10 @@
         - Up / Down: select previous / next visible row
         - Left: collapse the selected folder
         - Right: expand the selected folder
+        - A: use the selected row's left side as the replacement source
+        - D: use the selected row's right side as the replacement source
+        - A / D follow the corresponding source-selection button, including empty-side deletion
+        - Replacement shortcuts require synchronization to be enabled; ignore modified keys and key repeats
         - Keep the selected row visible
 - Show only new/changed files/folders
     - Retain ancestor folders needed to navigate differences
@@ -105,7 +145,8 @@
     - Double-click selects text; no folder picker
     - Semicolon-separated paths relative to either root, for example `automation/*.obj; cache`
     - Trim surrounding whitespace; ignore empty patterns
-    - Save the filter text to app preferences on edit; restore it on the next app launch, defaulting to empty
+    - Save the filter text to app preferences on edit; default to empty when no saved preference exists
+    - Restore on utility launch according to `lastProfile`
     - Case-sensitive; `*` matches zero or more characters within one path component
     - Match the entire relative path, for example `automation/*.obj`
     - Apply on both sides alongside the default ignore list

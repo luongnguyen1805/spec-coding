@@ -1,5 +1,11 @@
 import Foundation
 
+struct FolderSyncProfile: Sendable {
+    let leftPath: String
+    let rightPath: String
+    let ignorePatterns: String
+}
+
 enum FolderSyncSide: Equatable, Sendable {
     case left, right
 

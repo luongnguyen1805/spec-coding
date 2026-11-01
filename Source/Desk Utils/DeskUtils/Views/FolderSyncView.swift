@@ -4,6 +4,8 @@ import SwiftUI
 struct FolderSyncView: View {
     @ObservedObject var viewModel: FolderSyncViewModel
     @FocusState private var treeHasFocus: Bool
+    @State private var showingAddProfile = false
+    @State private var newProfileName = ""
     let onBack: () -> Void
 
     var body: some View {
@@ -16,6 +18,36 @@ struct FolderSyncView: View {
                 Text("Folder Sync")
                     .font(.defaultFontBold)
                 Spacer()
+                Menu {
+                    Button("None") {
+                        Task { await viewModel.selectProfile(nil) }
+                    }
+                    ForEach(viewModel.profileNames, id: \.self) { name in
+                        Button(name) {
+                            Task { await viewModel.selectProfile(name) }
+                        }
+                    }
+                } label: {
+                    Text(verbatim: viewModel.selectedProfile ?? "None")
+                        .frame(minWidth: 200, alignment: .leading)
+                }
+                .font(.system(size: 15))
+                .fixedSize(horizontal: true, vertical: false)
+                .disabled(viewModel.isBusy)
+                .accessibilityLabel("Sync profile")
+                .accessibilityIdentifier("folderSync.profileSelector")
+
+                Button {
+                    newProfileName = ""
+                    showingAddProfile = true
+                } label: {
+                    Image(systemName: "plus")
+                }
+                .buttonStyle(.borderless)
+                .disabled(viewModel.isBusy)
+                .help("Add sync profile")
+                .accessibilityLabel("Add sync profile")
+                .accessibilityIdentifier("folderSync.addProfile")
             }
             .padding(16)
 
@@ -103,6 +135,17 @@ struct FolderSyncView: View {
                     .focusable()
                     .focusEffectDisabled()
                     .focused($treeHasFocus)
+                    .onKeyPress(keys: ["a", "d"], phases: [.down, .repeat]) { press in
+                        guard press.modifiers.isEmpty else { return .ignored }
+                        // Consume repeats so holding a key cannot apply successive rows.
+                        guard press.phase == .down else { return .handled }
+                        guard viewModel.canSynchronize,
+                              let row = viewModel.visibleRows.first(where: { $0.id == viewModel.selectedPath }) else {
+                            return .handled
+                        }
+                        viewModel.synchronize(row.item, from: press.key == "a" ? .left : .right)
+                        return .handled
+                    }
                     .onKeyPress(.upArrow) {
                         viewModel.moveSelection(by: -1)
                         return .handled
@@ -129,6 +172,26 @@ struct FolderSyncView: View {
         }
         .font(.defaultFont)
         .background(Color(nsColor: .windowBackgroundColor))
+        .task { await viewModel.loadProfiles() }
+        .alert("Add Sync Profile", isPresented: $showingAddProfile) {
+            TextField("Profile name", text: $newProfileName)
+            Button("OK") {
+                let name = newProfileName.trimmingCharacters(in: .whitespacesAndNewlines)
+                Task { await viewModel.createProfile(named: name) }
+            }
+            .disabled(newProfileName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            Button("Cancel", role: .cancel) { newProfileName = "" }
+        } message: {
+            Text("Save the current folders and ignore patterns as a profile.")
+        }
+        .alert("Sync Profile Error", isPresented: Binding(
+            get: { viewModel.profileError != nil },
+            set: { if !$0 { viewModel.profileError = nil } }
+        )) {
+            Button("OK", role: .cancel) { viewModel.profileError = nil }
+        } message: {
+            Text(viewModel.profileError ?? "")
+        }
     }
 
     private func folderInput(_ title: String, path: Binding<String>) -> some View {
@@ -293,7 +356,7 @@ private final class FolderInputControl: NSView {
 }
 
 private final class FolderInputCell: NSTextFieldCell {
-    // A dedicated native editor keeps cursor styling local to this input.
+    // A dedicated native editor keeps selection styling local to this input.
     private lazy var inputEditor: NSTextView = {
         let editor = NSTextView(frame: .zero)
         editor.isFieldEditor = true
@@ -306,10 +369,7 @@ private final class FolderInputCell: NSTextFieldCell {
 
     override func setUpFieldEditorAttributes(_ textObj: NSText) -> NSText {
         let editor = super.setUpFieldEditorAttributes(textObj)
-        // Configure before AppKit draws the first insertion point, including
-        // focus through clicking or keyboard navigation without text changes.
         if let textView = editor as? NSTextView {
-            textView.insertionPointColor = .black
             var selectionAttributes = textView.selectedTextAttributes
             selectionAttributes[.backgroundColor] = NSColor.lightGray
             selectionAttributes[.foregroundColor] = NSColor.black

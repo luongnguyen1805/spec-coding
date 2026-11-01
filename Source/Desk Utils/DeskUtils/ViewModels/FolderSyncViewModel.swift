@@ -18,11 +18,15 @@ final class FolderSyncViewModel: ObservableObject {
     @Published private(set) var errors: [String] = []
     @Published private(set) var isBusy = false
     @Published private(set) var hasCompared = false
+    @Published private(set) var profileNames: [String] = []
+    @Published private(set) var selectedProfile: String?
+    @Published var profileError: String?
 
     private let manager = FolderSyncManager()
     private let preferences: UserDefaults
     private var comparedRoots: FolderSyncRoots?
     private var comparedPatterns: [String]?
+    private var didLoadProfiles = false
 
     private var inputPatterns: [String] {
         ignorePatterns.components(separatedBy: ";")
@@ -34,6 +38,7 @@ final class FolderSyncViewModel: ObservableObject {
         static let leftPath = "folderSync.leftPath"
         static let rightPath = "folderSync.rightPath"
         static let ignorePatterns = "folderSync.ignorePatterns"
+        static let lastProfile = "folderSync.lastProfile"
     }
 
     init(preferences: UserDefaults = .standard) {
@@ -41,6 +46,65 @@ final class FolderSyncViewModel: ObservableObject {
         leftPath = preferences.string(forKey: PreferenceKey.leftPath) ?? ""
         rightPath = preferences.string(forKey: PreferenceKey.rightPath) ?? ""
         ignorePatterns = preferences.string(forKey: PreferenceKey.ignorePatterns) ?? ""
+        selectedProfile = preferences.string(forKey: PreferenceKey.lastProfile)
+    }
+
+    func loadProfiles() async {
+        guard !didLoadProfiles, !isBusy else { return }
+        didLoadProfiles = true
+        isBusy = true
+        defer { isBusy = false }
+        do {
+            profileNames = try await manager.profileNames()
+            if let selectedProfile {
+                apply(try await manager.loadProfile(named: selectedProfile))
+            }
+        } catch {
+            profileError = "Could not load sync profiles: \(error.localizedDescription)"
+        }
+    }
+
+    func selectProfile(_ name: String?) async {
+        guard !isBusy else { return }
+        guard let name else {
+            selectedProfile = nil
+            preferences.removeObject(forKey: PreferenceKey.lastProfile)
+            return
+        }
+        isBusy = true
+        defer { isBusy = false }
+        do {
+            let profile = try await manager.loadProfile(named: name)
+            apply(profile)
+            selectedProfile = name
+            preferences.set(name, forKey: PreferenceKey.lastProfile)
+        } catch {
+            profileError = "Could not load profile \(name): \(error.localizedDescription)"
+        }
+    }
+
+    func createProfile(named name: String) async {
+        guard !isBusy else { return }
+        isBusy = true
+        defer { isBusy = false }
+        let profile = FolderSyncProfile(leftPath: leftPath, rightPath: rightPath,
+                                        ignorePatterns: ignorePatterns)
+        do {
+            try await manager.createProfile(named: name, profile: profile)
+        } catch {
+            profileError = "Could not create profile: \(error.localizedDescription)"
+            return
+        }
+        if !profileNames.contains(name) { profileNames.append(name) }
+        profileNames.sort { $0.localizedStandardCompare($1) == .orderedAscending }
+        selectedProfile = name
+        preferences.set(name, forKey: PreferenceKey.lastProfile)
+    }
+
+    private func apply(_ profile: FolderSyncProfile) {
+        leftPath = profile.leftPath
+        rightPath = profile.rightPath
+        ignorePatterns = profile.ignorePatterns
     }
 
     var canSynchronize: Bool {

@@ -1,3 +1,8 @@
+# Color
+
+- App accent: `#1E68CE`, sampled from the app icon's blue background
+- Same accent color in light and dark appearances
+
 # Font
 
 - Default: System, 15

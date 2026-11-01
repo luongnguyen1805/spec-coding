@@ -1,6 +1,18 @@
 import Foundation
 
 actor FolderSyncManager {
+    func profileNames() throws -> [String] {
+        try FolderSyncProfileTracker().names()
+    }
+
+    func loadProfile(named name: String) throws -> FolderSyncProfile {
+        try FolderSyncProfileTracker().load(named: name)
+    }
+
+    func createProfile(named name: String, profile: FolderSyncProfile) throws {
+        try FolderSyncProfileTracker().create(named: name, profile: profile)
+    }
+
     // Synchronous actor methods serialize blocking work away from the main actor.
     func compare(roots: FolderSyncRoots, ignoredPathPatterns: [String]) -> FolderSyncComparison {
         FolderSyncTracker(ignoredPathPatterns: ignoredPathPatterns).compare(roots: roots)
