@@ -19,6 +19,23 @@ struct FolderSyncView: View {
             }
             .padding(16)
 
+            FolderInputTextField(
+                placeholder: "Ignore relative paths, e.g. automation/*.obj; cache",
+                text: $viewModel.ignorePatterns,
+                isEnabled: !viewModel.isBusy
+            )
+            .frame(minWidth: 0, maxWidth: .infinity)
+            .frame(height: 50)
+            .overlay(alignment: .bottom) {
+                Rectangle().fill(Color.black).frame(height: 1)
+            }
+            .accessibilityLabel("Ignore relative paths")
+            .accessibilityIdentifier("folderSync.ignorePatterns")
+            .help("Semicolon-separated, case-sensitive relative paths. * matches within a path component. Folder actions still affect the whole folder.")
+            .disabled(viewModel.isBusy)
+            .padding(.horizontal, 16)
+            .padding(.bottom, 8)
+
             HStack(alignment: .bottom, spacing: 12) {
                 folderInput("Left Folder", path: $viewModel.leftPath)
                 Group {
@@ -112,28 +129,13 @@ struct FolderSyncView: View {
         }
         .font(.defaultFont)
         .background(Color(nsColor: .windowBackgroundColor))
-        .onChange(of: viewModel.leftPath) { viewModel.invalidateComparison() }
-        .onChange(of: viewModel.rightPath) { viewModel.invalidateComparison() }
     }
 
     private func folderInput(_ title: String, path: Binding<String>) -> some View {
         FolderInputTextField(
             placeholder: title,
             text: path,
-            isEnabled: !viewModel.isBusy,
-            onSubmit: viewModel.refresh,
-            onDoubleClick: {
-                let panel = NSOpenPanel()
-                panel.title = "Choose \(title.lowercased())"
-                panel.canChooseFiles = false
-                panel.canChooseDirectories = true
-                panel.allowsMultipleSelection = false
-                panel.treatsFilePackagesAsDirectories = true
-                panel.showsHiddenFiles = true
-                if panel.runModal() == .OK, let url = panel.url {
-                    path.wrappedValue = url.path
-                }
-            }
+            isEnabled: !viewModel.isBusy
         )
         .frame(minWidth: 0, maxWidth: .infinity)
         .frame(height: 50)
@@ -141,7 +143,6 @@ struct FolderSyncView: View {
             Rectangle().fill(Color.black).frame(height: 1)
         }
         .accessibilityLabel(title)
-        .help("Double-click to choose \(title.lowercased())")
         .disabled(viewModel.isBusy)
     }
 
@@ -204,8 +205,6 @@ private struct FolderInputTextField: NSViewRepresentable {
     let placeholder: String
     @Binding var text: String
     let isEnabled: Bool
-    let onSubmit: () -> Void
-    let onDoubleClick: () -> Void
 
     func makeCoordinator() -> Coordinator {
         Coordinator(parent: self)
@@ -230,17 +229,12 @@ private struct FolderInputTextField: NSViewRepresentable {
         field.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         field.setAccessibilityLabel(placeholder)
         update(field)
-        context.coordinator.observeDoubleClicks(in: control)
         return control
     }
 
     func updateNSView(_ control: FolderInputControl, context: Context) {
         context.coordinator.parent = self
         update(control.field)
-    }
-
-    static func dismantleNSView(_ control: FolderInputControl, coordinator: Coordinator) {
-        coordinator.stopObservingDoubleClicks()
     }
 
     private func update(_ field: NSTextField) {
@@ -251,37 +245,9 @@ private struct FolderInputTextField: NSViewRepresentable {
 
     final class Coordinator: NSObject, NSTextFieldDelegate {
         var parent: FolderInputTextField
-        private var doubleClickMonitor: Any?
 
         init(parent: FolderInputTextField) {
             self.parent = parent
-        }
-
-        func observeDoubleClicks(in control: FolderInputControl) {
-            // Editing clicks go to AppKit's shared field editor rather than the
-            // NSTextField. Observe local events so double-click works in both states.
-            doubleClickMonitor = NSEvent.addLocalMonitorForEvents(matching: .leftMouseDown) { [weak self, weak control] event in
-                // AppKit invokes local monitors synchronously on the main thread,
-                // but the callback signature does not express actor isolation.
-                let handled = MainActor.assumeIsolated {
-                    guard let self, let control, self.parent.isEnabled,
-                          event.clickCount == 2, let window = control.window,
-                          event.window === window, !control.isHiddenOrHasHiddenAncestor,
-                          control.bounds.contains(control.convert(event.locationInWindow, from: nil)) else {
-                        return false
-                    }
-                    self.parent.onDoubleClick()
-                    return true
-                }
-                return handled ? nil : event
-            }
-        }
-
-        func stopObservingDoubleClicks() {
-            if let doubleClickMonitor {
-                NSEvent.removeMonitor(doubleClickMonitor)
-                self.doubleClickMonitor = nil
-            }
         }
 
         func controlTextDidChange(_ notification: Notification) {
@@ -291,7 +257,6 @@ private struct FolderInputTextField: NSViewRepresentable {
 
         func control(_ control: NSControl, textView: NSTextView, doCommandBy commandSelector: Selector) -> Bool {
             guard commandSelector == #selector(NSResponder.insertNewline(_:)) else { return false }
-            parent.onSubmit()
             return true
         }
     }

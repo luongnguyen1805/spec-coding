@@ -14,9 +14,8 @@
 
 # Folder Input
 
-- Left and right roots support typed paths and folder pickers
-    - Double-click an input field to open its folder picker
-    - No separate open-folder button
+- Left and right roots use typed paths
+    - Double-click selects text; no folder picker
     - Save the last left and right folder paths in app preferences
     - Restore saved paths as defaults on the next app launch
 
@@ -30,6 +29,12 @@
     - Placeholder text: "Left Folder", "Right Folder"
 
 # Comparison
+
+- Refresh button applies the current folder paths and filter patterns
+    - Editing fields preserves displayed differences, errors, selection, and expansion
+    - Enter does not trigger comparison
+    - Disable synchronization while inputs differ from the displayed comparison
+    - Empty-result status describes the last applied comparison until Refresh
 
 - Match entries by root-relative path
     - Exact filename and file type match
@@ -64,11 +69,12 @@
 - Refresh button: refresh icon with a transparent background
     - Size: 50 × 50
     - Button bottom = input bottom-border bottom + 15 (15 points below)
-- No full-width horizontal borders
+- No full-width horizontal borders except the filter input's bottom border
 
 - Layout
 
 ```
+ (filter-field)
  (left-text-field)_____ <button-refresh> _____(right-text-field)
  (tree-of-files-folders)        |        (tree-of-files-folders)
 ```
@@ -92,6 +98,21 @@
     - Selecting an empty row deletes the opposite file or folder to synchronize the row
 
 - When no difference rows remain, show "Folders are synchronized."
+
+- Filter field: custom comparison ignore patterns above the folder input row
+    - Full width, spanning both folder inputs and the refresh-button gap
+    - Same style as folder inputs: height 50, transparent background, black 1-point bottom border, native text editing
+    - Double-click selects text; no folder picker
+    - Semicolon-separated paths relative to either root, for example `automation/*.obj; cache`
+    - Trim surrounding whitespace; ignore empty patterns
+    - Save the filter text to app preferences on edit; restore it on the next app launch, defaulting to empty
+    - Case-sensitive; `*` matches zero or more characters within one path component
+    - Match the entire relative path, for example `automation/*.obj`
+    - Apply on both sides alongside the default ignore list
+    - Matching folders exclude their descendants
+    - Edits remain pending until the user clicks Refresh
+    - Disabled while comparing or synchronizing
+    - Filters affect comparison only; folder actions still replace or delete the whole folder
 
 # Deferred
 

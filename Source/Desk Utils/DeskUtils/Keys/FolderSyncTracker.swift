@@ -8,6 +8,25 @@ struct FolderSyncTracker {
     ]
 
     private let fileManager = FileManager()
+    private let ignoredPathExpressions: [NSRegularExpression]
+
+    init(ignoredPathPatterns: [String] = []) {
+        ignoredPathExpressions = ignoredPathPatterns.compactMap { pattern in
+            // Escape all syntax except our single supported wildcard. A wildcard
+            // stays within one component; matching is anchored to the root.
+            let expression = pattern.components(separatedBy: "*")
+                .map { NSRegularExpression.escapedPattern(for: $0) }
+                .joined(separator: "[^/]*")
+            return try? NSRegularExpression(pattern: "\\A" + expression + "\\z")
+        }
+    }
+
+    private func isIgnored(relativePath: String) -> Bool {
+        let range = NSRange(relativePath.startIndex..., in: relativePath)
+        return ignoredPathExpressions.contains { regex in
+            regex.firstMatch(in: relativePath, range: range) != nil
+        }
+    }
 
     func compare(roots: FolderSyncRoots) -> FolderSyncComparison {
         var result = FolderSyncComparison()
@@ -59,6 +78,7 @@ struct FolderSyncTracker {
             // Filter before reading attributes or descending into either side.
             guard !Self.defaultIgnoredNames.contains(name) else { continue }
             let path = relativePath.isEmpty ? name : "\(relativePath)/\(name)"
+            guard !isIgnored(relativePath: path) else { continue }
             do {
                 let leftURL = leftByName[key].flatMap { left?.appendingPathComponent($0) }
                 let rightURL = rightByName[key].flatMap { right?.appendingPathComponent($0) }

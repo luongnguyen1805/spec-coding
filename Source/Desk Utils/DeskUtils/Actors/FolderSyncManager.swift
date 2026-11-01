@@ -1,14 +1,13 @@
 import Foundation
 
 actor FolderSyncManager {
-    private let tracker = FolderSyncTracker()
-
     // Synchronous actor methods serialize blocking work away from the main actor.
-    func compare(roots: FolderSyncRoots) -> FolderSyncComparison {
-        tracker.compare(roots: roots)
+    func compare(roots: FolderSyncRoots, ignoredPathPatterns: [String]) -> FolderSyncComparison {
+        FolderSyncTracker(ignoredPathPatterns: ignoredPathPatterns).compare(roots: roots)
     }
 
-    func synchronize(item: FolderSyncItem, source: FolderSyncSide, roots: FolderSyncRoots) -> FolderSyncComparison {
+    func synchronize(item: FolderSyncItem, source: FolderSyncSide, roots: FolderSyncRoots, ignoredPathPatterns: [String]) -> FolderSyncComparison {
+        let tracker = FolderSyncTracker(ignoredPathPatterns: ignoredPathPatterns)
         var operationError: String?
         do {
             try tracker.synchronize(item: item, source: source, roots: roots)

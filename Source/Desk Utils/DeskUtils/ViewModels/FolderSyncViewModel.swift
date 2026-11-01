@@ -10,6 +10,9 @@ final class FolderSyncViewModel: ObservableObject {
         didSet { preferences.set(rightPath, forKey: PreferenceKey.rightPath) }
     }
     @Published var expandedPaths: Set<String> = []
+    @Published var ignorePatterns: String {
+        didSet { preferences.set(ignorePatterns, forKey: PreferenceKey.ignorePatterns) }
+    }
     @Published var selectedPath: String?
     @Published private(set) var items: [FolderSyncItem] = []
     @Published private(set) var errors: [String] = []
@@ -19,24 +22,34 @@ final class FolderSyncViewModel: ObservableObject {
     private let manager = FolderSyncManager()
     private let preferences: UserDefaults
     private var comparedRoots: FolderSyncRoots?
+    private var comparedPatterns: [String]?
+
+    private var inputPatterns: [String] {
+        ignorePatterns.components(separatedBy: ";")
+            .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
+            .filter { !$0.isEmpty }
+    }
 
     private enum PreferenceKey {
         static let leftPath = "folderSync.leftPath"
         static let rightPath = "folderSync.rightPath"
+        static let ignorePatterns = "folderSync.ignorePatterns"
     }
 
     init(preferences: UserDefaults = .standard) {
         self.preferences = preferences
         leftPath = preferences.string(forKey: PreferenceKey.leftPath) ?? ""
         rightPath = preferences.string(forKey: PreferenceKey.rightPath) ?? ""
+        ignorePatterns = preferences.string(forKey: PreferenceKey.ignorePatterns) ?? ""
     }
 
     var canSynchronize: Bool {
         !isBusy && errors.isEmpty && comparedRoots != nil && comparedRoots == inputRoots
+            && comparedPatterns == inputPatterns
     }
 
     var isSynchronized: Bool {
-        hasCompared && canSynchronize && items.isEmpty
+        hasCompared && !isBusy && errors.isEmpty && items.isEmpty
     }
 
     var visibleRows: [FolderSyncRow] {
@@ -47,16 +60,6 @@ final class FolderSyncViewModel: ObservableObject {
             }
         }
         return flatten(items, depth: 0)
-    }
-
-    func invalidateComparison() {
-        guard !isBusy else { return }
-        items = []
-        errors = []
-        hasCompared = false
-        comparedRoots = nil
-        expandedPaths = []
-        selectedPath = nil
     }
 
     private var inputRoots: FolderSyncRoots? {
@@ -72,7 +75,7 @@ final class FolderSyncViewModel: ObservableObject {
     func refresh() {
         guard !isBusy else { return }
         guard let roots = inputRoots else {
-            errors = ["Enter an absolute folder path on each side, or choose folders."]
+            errors = ["Enter an absolute folder path on each side."]
             hasCompared = false
             items = []
             comparedRoots = nil
@@ -80,22 +83,24 @@ final class FolderSyncViewModel: ObservableObject {
         }
         isBusy = true
         errors = []
+        let patterns = inputPatterns
         if comparedRoots != roots {
             expandedPaths = []
             selectedPath = nil
         }
         Task {
-            let result = await manager.compare(roots: roots)
-            accept(result, roots: roots)
+            let result = await manager.compare(roots: roots, ignoredPathPatterns: patterns)
+            accept(result, roots: roots, patterns: patterns)
         }
     }
 
     func synchronize(_ item: FolderSyncItem, from side: FolderSyncSide) {
         guard canSynchronize, let roots = comparedRoots else { return }
         isBusy = true
+        let patterns = inputPatterns
         Task {
-            let result = await manager.synchronize(item: item, source: side, roots: roots)
-            accept(result, roots: roots)
+            let result = await manager.synchronize(item: item, source: side, roots: roots, ignoredPathPatterns: patterns)
+            accept(result, roots: roots, patterns: patterns)
         }
     }
 
@@ -128,7 +133,7 @@ final class FolderSyncViewModel: ObservableObject {
         }
     }
 
-    private func accept(_ result: FolderSyncComparison, roots: FolderSyncRoots) {
+    private func accept(_ result: FolderSyncComparison, roots: FolderSyncRoots, patterns: [String]) {
         let previousIndex = visibleRows.firstIndex(where: { $0.id == selectedPath })
         items = result.items
         let rows = visibleRows
@@ -137,6 +142,7 @@ final class FolderSyncViewModel: ObservableObject {
         }
         errors = result.errors
         comparedRoots = roots
+        comparedPatterns = patterns
         hasCompared = true
         isBusy = false
     }
