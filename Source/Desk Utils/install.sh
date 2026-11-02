@@ -18,6 +18,44 @@ if [[ ! -d "${PROJECT_PATH}" ]]; then
     exit 1
 fi
 
+# xcodebuild requires a full Xcode; when the active developer directory is the
+# Command Line Tools, point DEVELOPER_DIR at an installed Xcode for this build.
+is_xcode_developer_dir() {
+    [[ -n "$1" && -x "$1/usr/bin/xcodebuild" && "$1" == *.app/Contents/Developer ]]
+}
+
+resolve_developer_dir() {
+    local candidate
+    if is_xcode_developer_dir "${DEVELOPER_DIR:-}"; then
+        /usr/bin/printf '%s\n' "${DEVELOPER_DIR}"
+        return 0
+    fi
+    candidate="$(/usr/bin/xcode-select -p 2>/dev/null || true)"
+    if is_xcode_developer_dir "${candidate}"; then
+        /usr/bin/printf '%s\n' "${candidate}"
+        return 0
+    fi
+    candidate="/Applications/Xcode.app/Contents/Developer"
+    if is_xcode_developer_dir "${candidate}"; then
+        /usr/bin/printf '%s\n' "${candidate}"
+        return 0
+    fi
+    while IFS= read -r app; do
+        candidate="${app}/Contents/Developer"
+        if is_xcode_developer_dir "${candidate}"; then
+            /usr/bin/printf '%s\n' "${candidate}"
+            return 0
+        fi
+    done < <(/usr/bin/mdfind "kMDItemCFBundleIdentifier == 'com.apple.dt.Xcode'" 2>/dev/null || true)
+    return 1
+}
+
+if ! XCODE_DEVELOPER_DIR="$(resolve_developer_dir)"; then
+    /usr/bin/printf '%s\n' 'Xcode not found. Install Xcode, or set DEVELOPER_DIR to <Xcode.app>/Contents/Developer.' >&2
+    exit 1
+fi
+export DEVELOPER_DIR="${XCODE_DEVELOPER_DIR}"
+
 /usr/bin/printf '%s\n' 'Building DeskUtils (Release)…'
 /usr/bin/xcodebuild \
     -project "${PROJECT_PATH}" \

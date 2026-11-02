@@ -77,6 +77,39 @@ struct FolderSyncProfileTracker {
     }
 
     func create(named name: String, profile: FolderSyncProfile) throws {
+        try write(profile, named: name, options: [.withoutOverwriting])
+    }
+
+    func save(named name: String, profile: FolderSyncProfile) throws {
+        try write(profile, named: name, options: [.atomic])
+    }
+
+    func rename(named name: String, to newName: String) throws {
+        let source = try file(named: name)
+        let target = try file(named: newName)
+        guard source.lastPathComponent != target.lastPathComponent else { return }
+        let keys: Set<URLResourceKey> = [.isRegularFileKey, .isSymbolicLinkKey, .fileResourceIdentifierKey]
+        let values = try source.resourceValues(forKeys: keys)
+        guard values.isRegularFile == true, values.isSymbolicLink != true else {
+            throw failure("The profile must be a regular text file.")
+        }
+        // A case-only rename on a case-insensitive volume resolves the target to the source itself.
+        let targetIdentifier = try? target.resourceValues(forKeys: keys).fileResourceIdentifier
+        let isSameFile = targetIdentifier.map { $0.isEqual(values.fileResourceIdentifier) } ?? false
+        let result = source.withUnsafeFileSystemRepresentation { sourcePath in
+            target.withUnsafeFileSystemRepresentation { targetPath in
+                guard let sourcePath, let targetPath else { return Int32(-1) }
+                return isSameFile ? Darwin.rename(sourcePath, targetPath)
+                    : renamex_np(sourcePath, targetPath, UInt32(RENAME_EXCL))
+            }
+        }
+        guard result == 0 else {
+            if errno == EEXIST { throw failure("A profile named \(newName) already exists.") }
+            throw NSError(domain: NSPOSIXErrorDomain, code: Int(errno))
+        }
+    }
+
+    private func write(_ profile: FolderSyncProfile, named name: String, options: Data.WritingOptions) throws {
         let url = try file(named: name)
         guard [profile.leftPath, profile.rightPath, profile.ignorePatterns].allSatisfy({
             $0.rangeOfCharacter(from: .newlines) == nil
@@ -85,7 +118,7 @@ struct FolderSyncProfileTracker {
         }
         try fileManager.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
         let text = "LeftFolder=\(profile.leftPath)\nRight Folder=\(profile.rightPath)\nIgnores=\(profile.ignorePatterns)\n"
-        try Data(text.utf8).write(to: url, options: [.withoutOverwriting])
+        try Data(text.utf8).write(to: url, options: options)
     }
 
     private func failure(_ message: String) -> NSError {
@@ -100,25 +133,58 @@ struct FolderSyncTracker {
         "xcshareddata", "xcuserdata"
     ]
 
-    private let fileManager = FileManager()
-    private let ignoredPathExpressions: [NSRegularExpression]
+    private struct IgnorePattern {
+        let expression: NSRegularExpression
+        let foldersOnly: Bool
 
-    init(ignoredPathPatterns: [String] = []) {
-        ignoredPathExpressions = ignoredPathPatterns.compactMap { pattern in
-            // Escape all syntax except our single supported wildcard. A wildcard
-            // stays within one component; matching is anchored to the root.
-            let expression = pattern.components(separatedBy: "*")
-                .map { NSRegularExpression.escapedPattern(for: $0) }
-                .joined(separator: "[^/]*")
-            return try? NSRegularExpression(pattern: "\\A" + expression + "\\z")
+        init?(_ pattern: String) {
+            // A trailing "/" restricts the pattern to folders.
+            foldersOnly = pattern.hasSuffix("/")
+            let components = pattern.split(separator: "/").map(String.init)
+            guard !components.isEmpty else { return nil }
+            // Anchored to the root. "*" stays within one component;
+            // a "**" component spans zero or more components.
+            var regex = ""
+            for (index, component) in components.enumerated() {
+                let isLast = index == components.count - 1
+                if component == "**" {
+                    regex += isLast ? "[^/]+(?:/[^/]+)*" : "(?:[^/]+/)*"
+                } else {
+                    regex += component.components(separatedBy: "*")
+                        .map { NSRegularExpression.escapedPattern(for: $0) }
+                        .joined(separator: "[^/]*")
+                    if !isLast { regex += "/" }
+                }
+            }
+            guard let expression = try? NSRegularExpression(pattern: "\\A" + regex + "\\z") else { return nil }
+            self.expression = expression
+        }
+
+        func matches(_ relativePath: String) -> Bool {
+            let range = NSRange(relativePath.startIndex..., in: relativePath)
+            return expression.firstMatch(in: relativePath, range: range) != nil
         }
     }
 
-    private func isIgnored(relativePath: String) -> Bool {
-        let range = NSRange(relativePath.startIndex..., in: relativePath)
-        return ignoredPathExpressions.contains { regex in
-            regex.firstMatch(in: relativePath, range: range) != nil
+    private let fileManager = FileManager()
+    private let ignorePatterns: [IgnorePattern]
+
+    init(ignoredPathPatterns: [String] = []) {
+        ignorePatterns = ignoredPathPatterns.compactMap(IgnorePattern.init)
+    }
+
+    private func isIgnored(relativePath: String, urls: [URL]) -> Bool {
+        ignorePatterns.contains { pattern in
+            guard pattern.matches(relativePath) else { return false }
+            // Folder-only patterns drop the entry from both sides when either side is a folder.
+            return !pattern.foldersOnly || urls.contains(where: isRealFolder)
         }
+    }
+
+    private func isRealFolder(_ url: URL) -> Bool {
+        // Attributes describe the entry itself; symbolic links are not followed.
+        let attributes = try? fileManager.attributesOfItem(atPath: url.path)
+        return attributes?[.type] as? FileAttributeType == .typeDirectory
     }
 
     func compare(roots: FolderSyncRoots) -> FolderSyncComparison {
@@ -139,6 +205,62 @@ struct FolderSyncTracker {
         return result
     }
 
+    // Recompare the changed branch, including any one-sided or mismatched
+    // ancestor whose counterpart may have been created by copying a child.
+    func refresh(item: FolderSyncItem, roots: FolderSyncRoots,
+                 previousItems: [FolderSyncItem]) -> FolderSyncComparison {
+        var result = FolderSyncComparison()
+
+        func existingURL(_ url: URL) throws -> URL? {
+            do {
+                _ = try entry(at: url)
+                return url
+            } catch let error as NSError where error.domain == NSCocoaErrorDomain &&
+                (error.code == NSFileReadNoSuchFileError || error.code == NSFileNoSuchFileError) {
+                return nil
+            }
+        }
+
+        func update(_ nodes: [FolderSyncItem]) -> [FolderSyncItem] {
+            nodes.compactMap { node -> FolderSyncItem? in
+                let isTarget = node.id == item.id
+                let isAncestor = item.relativePath.utf8.starts(with: (node.relativePath + "/").utf8)
+                guard isTarget || isAncestor else { return node }
+                if isTarget || node.left?.kind != .folder || node.right?.kind != .folder {
+                    do {
+                        let left = try existingURL(roots.left.appendingPathComponent(node.relativePath))
+                        let right = try existingURL(roots.right.appendingPathComponent(node.relativePath))
+                        guard left != nil || right != nil else { return nil }
+                        return try compareItem(left: left, right: right,
+                                               relativePath: node.relativePath, name: node.name,
+                                               errors: &result.errors)
+                    } catch {
+                        result.errors.append("\(node.relativePath): \(error.localizedDescription)")
+                        // Retain differences that could not be inspected.
+                        return node
+                    }
+                }
+                let children = update(node.children)
+                guard !children.isEmpty else { return nil }
+                return FolderSyncItem(relativePath: node.relativePath, name: node.name,
+                                      left: node.left, right: node.right, children: children)
+            }
+        }
+
+        do {
+            for root in [roots.left, roots.right] {
+                guard try entry(at: root).kind == .folder else {
+                    throw failure("Choose a folder: \(root.path)")
+                }
+            }
+            result.items = update(previousItems)
+        } catch {
+            result.items = previousItems
+            result.errors.append(error.localizedDescription)
+        }
+        return result
+    }
+
     private func entry(at url: URL) throws -> FolderSyncEntry {
         let attributes = try fileManager.attributesOfItem(atPath: url.path)
         let kind: FolderSyncEntry.Kind
@@ -150,8 +272,7 @@ struct FolderSyncTracker {
         }
         return FolderSyncEntry(
             kind: kind,
-            size: (attributes[.size] as? NSNumber)?.uint64Value ?? 0,
-            modificationDate: attributes[.modificationDate] as? Date
+            size: (attributes[.size] as? NSNumber)?.uint64Value ?? 0
         )
     }
 
@@ -168,13 +289,13 @@ struct FolderSyncTracker {
         var items: [FolderSyncItem] = []
         for key in names {
             guard let name = leftByName[key] ?? rightByName[key] else { continue }
-            // Filter before reading attributes or descending into either side.
+            // Filter before comparing or descending into either side.
             guard !Self.defaultIgnoredNames.contains(name) else { continue }
             let path = relativePath.isEmpty ? name : "\(relativePath)/\(name)"
-            guard !isIgnored(relativePath: path) else { continue }
+            let leftURL = leftByName[key].flatMap { left?.appendingPathComponent($0) }
+            let rightURL = rightByName[key].flatMap { right?.appendingPathComponent($0) }
+            guard !isIgnored(relativePath: path, urls: [leftURL, rightURL].compactMap { $0 }) else { continue }
             do {
-                let leftURL = leftByName[key].flatMap { left?.appendingPathComponent($0) }
-                let rightURL = rightByName[key].flatMap { right?.appendingPathComponent($0) }
                 if let item = try compareItem(left: leftURL, right: rightURL, relativePath: path, name: name, errors: &errors) {
                     items.append(item)
                 }
@@ -206,12 +327,10 @@ struct FolderSyncTracker {
                 if children.isEmpty { return nil }
             case .file:
                 if leftEntry.size == rightEntry.size,
-                   leftEntry.modificationDate == rightEntry.modificationDate,
                    try contentsEqual(left, right) { return nil }
             case .symbolicLink:
                 // Compare the links themselves; never traverse their targets.
                 if leftEntry.size == rightEntry.size,
-                   leftEntry.modificationDate == rightEntry.modificationDate,
                    try fileManager.destinationOfSymbolicLink(atPath: left.path)
                     == fileManager.destinationOfSymbolicLink(atPath: right.path) { return nil }
             }
@@ -219,14 +338,16 @@ struct FolderSyncTracker {
         return FolderSyncItem(relativePath: relativePath, name: name, left: leftEntry, right: rightEntry, children: children)
     }
 
+    private static let contentBlockSize = 1024
+
     private func contentsEqual(_ left: URL, _ right: URL) throws -> Bool {
         let leftHandle = try FileHandle(forReadingFrom: left)
         defer { try? leftHandle.close() }
         let rightHandle = try FileHandle(forReadingFrom: right)
         defer { try? rightHandle.close() }
         while true {
-            let leftData = try leftHandle.read(upToCount: 1024 * 1024) ?? Data()
-            let rightData = try rightHandle.read(upToCount: 1024 * 1024) ?? Data()
+            let leftData = try leftHandle.read(upToCount: Self.contentBlockSize) ?? Data()
+            let rightData = try rightHandle.read(upToCount: Self.contentBlockSize) ?? Data()
             if leftData != rightData { return false }
             if leftData.isEmpty { return true }
         }

@@ -4,14 +4,14 @@ import Combine
 @MainActor
 final class FolderSyncViewModel: ObservableObject {
     @Published var leftPath: String {
-        didSet { preferences.set(leftPath, forKey: PreferenceKey.leftPath) }
+        didSet { saveFields() }
     }
     @Published var rightPath: String {
-        didSet { preferences.set(rightPath, forKey: PreferenceKey.rightPath) }
+        didSet { saveFields() }
     }
     @Published var expandedPaths: Set<String> = []
     @Published var ignorePatterns: String {
-        didSet { preferences.set(ignorePatterns, forKey: PreferenceKey.ignorePatterns) }
+        didSet { saveFields() }
     }
     @Published var selectedPath: String?
     @Published private(set) var items: [FolderSyncItem] = []
@@ -27,6 +27,8 @@ final class FolderSyncViewModel: ObservableObject {
     private var comparedRoots: FolderSyncRoots?
     private var comparedPatterns: [String]?
     private var didLoadProfiles = false
+    private var isLoadingFields = false
+    private var profileSaveTask: Task<Void, Never>?
 
     private var inputPatterns: [String] {
         ignorePatterns.components(separatedBy: ";")
@@ -69,6 +71,11 @@ final class FolderSyncViewModel: ObservableObject {
         guard let name else {
             selectedProfile = nil
             preferences.removeObject(forKey: PreferenceKey.lastProfile)
+            apply(FolderSyncProfile(
+                leftPath: preferences.string(forKey: PreferenceKey.leftPath) ?? "",
+                rightPath: preferences.string(forKey: PreferenceKey.rightPath) ?? "",
+                ignorePatterns: preferences.string(forKey: PreferenceKey.ignorePatterns) ?? ""
+            ))
             return
         }
         isBusy = true
@@ -101,10 +108,54 @@ final class FolderSyncViewModel: ObservableObject {
         preferences.set(name, forKey: PreferenceKey.lastProfile)
     }
 
+    func renameSelectedProfile(to newName: String) async {
+        guard !isBusy, let name = selectedProfile, newName != name else { return }
+        isBusy = true
+        defer { isBusy = false }
+        // Pending field saves target the old file name; let them land first.
+        await profileSaveTask?.value
+        do {
+            try await manager.renameProfile(named: name, to: newName)
+        } catch {
+            profileError = "Could not rename profile \(name): \(error.localizedDescription)"
+            return
+        }
+        profileNames.removeAll { $0 == name }
+        if !profileNames.contains(newName) { profileNames.append(newName) }
+        profileNames.sort { $0.localizedStandardCompare($1) == .orderedAscending }
+        selectedProfile = newName
+        preferences.set(newName, forKey: PreferenceKey.lastProfile)
+    }
+
     private func apply(_ profile: FolderSyncProfile) {
+        // Loading fields is not an edit; never write them back.
+        isLoadingFields = true
+        defer { isLoadingFields = false }
         leftPath = profile.leftPath
         rightPath = profile.rightPath
         ignorePatterns = profile.ignorePatterns
+    }
+
+    private func saveFields() {
+        guard !isLoadingFields else { return }
+        guard let name = selectedProfile else {
+            preferences.set(leftPath, forKey: PreferenceKey.leftPath)
+            preferences.set(rightPath, forKey: PreferenceKey.rightPath)
+            preferences.set(ignorePatterns, forKey: PreferenceKey.ignorePatterns)
+            return
+        }
+        let profile = FolderSyncProfile(leftPath: leftPath, rightPath: rightPath,
+                                        ignorePatterns: ignorePatterns)
+        // Chain saves so per-keystroke writes land in edit order.
+        let previous = profileSaveTask
+        profileSaveTask = Task { [manager] in
+            await previous?.value
+            do {
+                try await manager.saveProfile(named: name, profile: profile)
+            } catch {
+                profileError = "Could not save profile \(name): \(error.localizedDescription)"
+            }
+        }
     }
 
     var canSynchronize: Bool {
@@ -162,8 +213,10 @@ final class FolderSyncViewModel: ObservableObject {
         guard canSynchronize, let roots = comparedRoots else { return }
         isBusy = true
         let patterns = inputPatterns
+        let previousItems = items
         Task {
-            let result = await manager.synchronize(item: item, source: side, roots: roots, ignoredPathPatterns: patterns)
+            let result = await manager.synchronize(item: item, source: side, roots: roots,
+                                                   ignoredPathPatterns: patterns, previousItems: previousItems)
             accept(result, roots: roots, patterns: patterns)
         }
     }

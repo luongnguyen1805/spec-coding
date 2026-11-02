@@ -16,7 +16,7 @@
 
 - Left and right roots use typed paths
     - Double-click selects text; no folder picker
-    - Save the last left and right folder paths in app preferences
+    - Save the last left and right folder paths on edit, according to `lastProfile`
     - Restore on utility launch according to `lastProfile`
 
 - Folder Input Field
@@ -44,8 +44,14 @@ Ignores=
 - On utility launch
     - `lastProfile` is nil → load left folder, right folder, and ignores from app preferences
     - Otherwise → load fields from `lastProfile`
+- On field edit (left folder, right folder, ignores)
+    - `lastProfile` is nil → save to app preferences
+    - Otherwise → save to the `lastProfile` data file
+    - Loading fields from a profile or preferences is not an edit
 
 - Profile selector in the top-right corner, with an adjacent add-icon button
+    - Pen-icon rename button on its left
+        - Hidden when `lastProfile` is nil
     - Minimum width: 200 points
     - Expand to fit the selected profile name
     - System font: 15 points
@@ -56,12 +62,19 @@ Ignores=
     - OK → create `{name}.txt` with the current left folder, right folder, and ignores
         - Select the saved profile and persist it as `lastProfile` after successful creation
     - Cancel → save nothing
+- Rename button → alert to edit the selected profile name
+    - OK → rename `{name}.txt` to `{newName}.txt`, keeping its content
+        - Do not overwrite an existing profile
+        - Persist the new name as `lastProfile` after successful rename
+        - Profile selector shows the new name
+    - Cancel → rename nothing
 - Selecting a profile
     - Set `lastProfile` to the selected profile in app preferences
     - Populate the folder and filter fields from the profile
     - Apply comparison changes only when Refresh is clicked
 - Selecting "None"
     - Set `lastProfile` to nil in app preferences
+    - Populate the folder and filter fields from app preferences
 
 # Comparison
 
@@ -74,9 +87,10 @@ Ignores=
 - Match entries by root-relative path
     - Exact filename and file type match
     - File/folder type mismatches are differences
-- Compare file size and modification date first
-    - Either differs → changed
-    - Both match → compare contents to detect remaining differences
+- Compare file size in bytes first
+    - Differs → changed
+    - Matches → compare contents in 1024-byte blocks, stop at first differing block
+- Modification date is not compared
 - Include hidden files and package contents, except ignored entries
 - Default comparison ignore list
     - Exact entry names: `.DS_Store`, `.git`, `.gitignore`, `node-modules`, `.swift-module-cache`, `.build`, `xcshareddata`, `xcuserdata`
@@ -109,7 +123,7 @@ Ignores=
 - Layout
 
 ```
-                                           (profile-selector) <add>
+                                  <rename> (profile-selector) <add>
  (filter-field)
  (left-text-field)_____ <button-refresh> _____(right-text-field)
  (tree-of-files-folders)        |        (tree-of-files-folders)
@@ -145,12 +159,18 @@ Ignores=
     - Double-click selects text; no folder picker
     - Semicolon-separated paths relative to either root, for example `automation/*.obj; cache`
     - Trim surrounding whitespace; ignore empty patterns
-    - Save the filter text to app preferences on edit; default to empty when no saved preference exists
+    - Save the filter text on edit, according to `lastProfile`; default to empty when no saved preference exists
     - Restore on utility launch according to `lastProfile`
-    - Case-sensitive; `*` matches zero or more characters within one path component
-    - Match the entire relative path, for example `automation/*.obj`
+    - Pattern syntax
+        - Case-sensitive; match the entire root-relative path
+        - Component matches the exact entry name, for example `vscode` → `./vscode`, `child/vscode` → `./child/vscode`
+        - No trailing `/` → match files and folders
+        - Trailing `/` → match folders only, for example `claude/` → `./claude/`, `child/claude/` → `./child/claude/`
+        - `*` matches zero or more characters within one component, for example `*/vscode`, `automation/*.obj`
+        - `**` component matches zero or more components, for example `**/vscode` → `./vscode`, `./child/vscode`, `./child/child2/vscode`
     - Apply on both sides alongside the default ignore list
     - Matching folders exclude their descendants
+    - Folder-only pattern ignores the entry on both sides when either side is a folder
     - Edits remain pending until the user clicks Refresh
     - Disabled while comparing or synchronizing
     - Filters affect comparison only; folder actions still replace or delete the whole folder

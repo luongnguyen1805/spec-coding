@@ -6,6 +6,8 @@ struct FolderSyncView: View {
     @FocusState private var treeHasFocus: Bool
     @State private var showingAddProfile = false
     @State private var newProfileName = ""
+    @State private var showingRenameProfile = false
+    @State private var renamedProfileName = ""
     let onBack: () -> Void
 
     var body: some View {
@@ -18,6 +20,19 @@ struct FolderSyncView: View {
                 Text("Folder Sync")
                     .font(.defaultFontBold)
                 Spacer()
+                if let profile = viewModel.selectedProfile {
+                    Button {
+                        renamedProfileName = profile
+                        showingRenameProfile = true
+                    } label: {
+                        Image(systemName: "pencil")
+                    }
+                    .buttonStyle(.borderless)
+                    .disabled(viewModel.isBusy)
+                    .help("Rename sync profile")
+                    .accessibilityLabel("Rename sync profile")
+                    .accessibilityIdentifier("folderSync.renameProfile")
+                }
                 Menu {
                     Button("None") {
                         Task { await viewModel.selectProfile(nil) }
@@ -183,6 +198,17 @@ struct FolderSyncView: View {
             Button("Cancel", role: .cancel) { newProfileName = "" }
         } message: {
             Text("Save the current folders and ignore patterns as a profile.")
+        }
+        .alert("Rename Sync Profile", isPresented: $showingRenameProfile) {
+            TextField("Profile name", text: $renamedProfileName)
+            Button("OK") {
+                let name = renamedProfileName.trimmingCharacters(in: .whitespacesAndNewlines)
+                Task { await viewModel.renameSelectedProfile(to: name) }
+            }
+            .disabled(renamedProfileName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
+            Button("Cancel", role: .cancel) { renamedProfileName = "" }
+        } message: {
+            Text("Enter a new name for the selected profile.")
         }
         .alert("Sync Profile Error", isPresented: Binding(
             get: { viewModel.profileError != nil },

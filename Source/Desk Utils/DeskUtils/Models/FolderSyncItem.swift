@@ -19,7 +19,6 @@ struct FolderSyncEntry: Sendable {
 
     let kind: Kind
     let size: UInt64
-    let modificationDate: Date?
 }
 
 struct FolderSyncItem: Identifiable, Sendable {
