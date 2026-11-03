@@ -2,6 +2,10 @@
 # App
 
 - DeskUtils: macOS desktop utilities app
+- User-facing app name: "Desktop Utilities"
+    - Bundle display name: "Desktop Utilities" (Dock, Finder, window title, Dashboard)
+    - Bundle name: short name "Desktop Utils" (menu bar), within the 15-character limit
+    - Internal identifiers, storage folders, and build scripts keep "DeskUtils"
 - Swift, SwiftUI, Swift Concurrency
 
 - Independent small utils, one screen per util

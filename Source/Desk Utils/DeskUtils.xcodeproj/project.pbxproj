@@ -7,11 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F51000000000000000000001 /* FolderSyncItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52000000000000000000001 /* FolderSyncItem.swift */; };
-		F51000000000000000000002 /* FolderSyncTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52000000000000000000002 /* FolderSyncTracker.swift */; };
-		F51000000000000000000003 /* FolderSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52000000000000000000003 /* FolderSyncManager.swift */; };
-		F51000000000000000000004 /* FolderSyncViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52000000000000000000004 /* FolderSyncViewModel.swift */; };
-		F51000000000000000000005 /* FolderSyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52000000000000000000005 /* FolderSyncView.swift */; };
 		8407CAB32FF4C02F00FCC895 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CAB22FF4C02F00FCC895 /* DashboardView.swift */; };
 		8407CAB42FF4C02F00FCC895 /* DashboardCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CAB12FF4C02F00FCC895 /* DashboardCard.swift */; };
 		8407CAB62FF4C03D00FCC895 /* FolderManagerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407CAB52FF4C03D00FCC895 /* FolderManagerView.swift */; };
@@ -36,6 +31,12 @@
 		84DEEC652FF76A1500129771 /* PipPackageTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DEEC632FF76A1500129771 /* PipPackageTracker.swift */; };
 		84DEEC662FF76A1500129771 /* NpmPackageTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DEEC612FF76A1500129771 /* NpmPackageTracker.swift */; };
 		84DEEC672FF76A1500129771 /* PackageTrackerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84DEEC622FF76A1500129771 /* PackageTrackerProtocol.swift */; };
+		AB0000000000000000000009 /* DeskUtilsCaptureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB0000000000000000000001 /* DeskUtilsCaptureTests.swift */; };
+		F51000000000000000000001 /* FolderSyncItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52000000000000000000001 /* FolderSyncItem.swift */; };
+		F51000000000000000000002 /* FolderSyncTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52000000000000000000002 /* FolderSyncTracker.swift */; };
+		F51000000000000000000003 /* FolderSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52000000000000000000003 /* FolderSyncManager.swift */; };
+		F51000000000000000000004 /* FolderSyncViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52000000000000000000004 /* FolderSyncViewModel.swift */; };
+		F51000000000000000000005 /* FolderSyncView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F52000000000000000000005 /* FolderSyncView.swift */; };
 		FB1001000000000000000001 /* DeskUtilsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1001000000000000000001 /* DeskUtilsApp.swift */; };
 		FB1002000000000000000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1002000000000000000002 /* ContentView.swift */; };
 		FB1003000000000000000003 /* SoftwareItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA1003000000000000000003 /* SoftwareItem.swift */; };
@@ -56,12 +57,17 @@
 		FB101D00000000000000001D /* FolderScan.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA101D00000000000000001D /* FolderScan.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		AB000000000000000000000B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FE1001000000000000000001;
+			remoteInfo = DeskUtils;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		F52000000000000000000001 /* FolderSyncItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderSyncItem.swift; sourceTree = "<group>"; };
-		F52000000000000000000002 /* FolderSyncTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderSyncTracker.swift; sourceTree = "<group>"; };
-		F52000000000000000000003 /* FolderSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderSyncManager.swift; sourceTree = "<group>"; };
-		F52000000000000000000004 /* FolderSyncViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderSyncViewModel.swift; sourceTree = "<group>"; };
-		F52000000000000000000005 /* FolderSyncView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderSyncView.swift; sourceTree = "<group>"; };
 		8407CAB12FF4C02F00FCC895 /* DashboardCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardCard.swift; sourceTree = "<group>"; };
 		8407CAB22FF4C02F00FCC895 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		8407CAB52FF4C03D00FCC895 /* FolderManagerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderManagerView.swift; sourceTree = "<group>"; };
@@ -86,6 +92,13 @@
 		84DEEC612FF76A1500129771 /* NpmPackageTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NpmPackageTracker.swift; sourceTree = "<group>"; };
 		84DEEC622FF76A1500129771 /* PackageTrackerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackageTrackerProtocol.swift; sourceTree = "<group>"; };
 		84DEEC632FF76A1500129771 /* PipPackageTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PipPackageTracker.swift; sourceTree = "<group>"; };
+		AB0000000000000000000001 /* DeskUtilsCaptureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskUtilsCaptureTests.swift; sourceTree = "<group>"; };
+		AB0000000000000000000002 /* DeskUtilsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DeskUtilsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F52000000000000000000001 /* FolderSyncItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderSyncItem.swift; sourceTree = "<group>"; };
+		F52000000000000000000002 /* FolderSyncTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderSyncTracker.swift; sourceTree = "<group>"; };
+		F52000000000000000000003 /* FolderSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderSyncManager.swift; sourceTree = "<group>"; };
+		F52000000000000000000004 /* FolderSyncViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderSyncViewModel.swift; sourceTree = "<group>"; };
+		F52000000000000000000005 /* FolderSyncView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderSyncView.swift; sourceTree = "<group>"; };
 		FA1001000000000000000001 /* DeskUtilsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskUtilsApp.swift; sourceTree = "<group>"; };
 		FA1002000000000000000002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FA1003000000000000000003 /* SoftwareItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoftwareItem.swift; sourceTree = "<group>"; };
@@ -110,6 +123,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		AB0000000000000000000007 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FD1002000000000000000002 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -156,6 +176,14 @@
 				8407CAB22FF4C02F00FCC895 /* DashboardView.swift */,
 			);
 			path = DashboardView;
+			sourceTree = "<group>";
+		};
+		AB0000000000000000000003 /* DeskUtilsUITests */ = {
+			isa = PBXGroup;
+			children = (
+				AB0000000000000000000001 /* DeskUtilsCaptureTests.swift */,
+			);
+			path = DeskUtilsUITests;
 			sourceTree = "<group>";
 		};
 		FC1001000000000000000001 = {
@@ -261,6 +289,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		AB0000000000000000000004 /* DeskUtilsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AB0000000000000000000005 /* Build configuration list for PBXNativeTarget "DeskUtilsUITests" */;
+			buildPhases = (
+				AB0000000000000000000006 /* Sources */,
+				AB0000000000000000000007 /* Frameworks */,
+				AB0000000000000000000008 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AB000000000000000000000A /* PBXTargetDependency */,
+			);
+			name = DeskUtilsUITests;
+			productName = DeskUtilsUITests;
+			productReference = AB0000000000000000000002 /* DeskUtilsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		FE1001000000000000000001 /* DeskUtils */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CL1002000000000000000002 /* Build configuration list for PBXNativeTarget "DeskUtils" */;
@@ -288,7 +334,10 @@
 				LastSwiftUpdateCheck = 1500;
 				LastUpgradeCheck = 2630;
 				TargetAttributes = {
-					AB0000000000000000000004 = {CreatedOnToolsVersion = 15.0; TestTargetID = FE1001000000000000000001; };
+					AB0000000000000000000004 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = FE1001000000000000000001;
+					};
 					FE1001000000000000000001 = {
 						CreatedOnToolsVersion = 15.0;
 					};
@@ -314,6 +363,13 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		AB0000000000000000000008 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FD1003000000000000000003 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -325,6 +381,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		AB0000000000000000000006 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AB0000000000000000000009 /* DeskUtilsCaptureTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FD1001000000000000000001 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -380,7 +444,57 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		AB000000000000000000000A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FE1001000000000000000001 /* DeskUtils */;
+			targetProxy = AB000000000000000000000B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		AB000000000000000000000C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_APP_SANDBOX = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nguyen.DeskUtilsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = DeskUtils;
+			};
+			name = Debug;
+		};
+		AB000000000000000000000D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_APP_SANDBOX = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.nguyen.DeskUtilsUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = DeskUtils;
+			};
+			name = Release;
+		};
 		CF1001000000000000000001 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -510,7 +624,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -543,7 +657,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -568,6 +682,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AB0000000000000000000005 /* Build configuration list for PBXNativeTarget "DeskUtilsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AB000000000000000000000C /* Debug */,
+				AB000000000000000000000D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CL1001000000000000000001 /* Build configuration list for PBXProject "DeskUtils" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -587,63 +710,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* UI capture test target */
-		AB0000000000000000000001 = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskUtilsCaptureTests.swift; sourceTree = "<group>"; };
-		AB0000000000000000000002 = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DeskUtilsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AB0000000000000000000003 = {isa = PBXGroup; children = (AB0000000000000000000001,); path = DeskUtilsUITests; sourceTree = "<group>"; };
-		AB0000000000000000000004 = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AB0000000000000000000005;
-			buildPhases = (AB0000000000000000000006, AB0000000000000000000007, AB0000000000000000000008,);
-			buildRules = ();
-			dependencies = (AB000000000000000000000A,);
-			name = DeskUtilsUITests;
-			productName = DeskUtilsUITests;
-			productReference = AB0000000000000000000002;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
-		AB0000000000000000000005 = {isa = XCConfigurationList; buildConfigurations = (AB000000000000000000000C, AB000000000000000000000D,); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
-		AB0000000000000000000006 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (AB0000000000000000000009,); runOnlyForDeploymentPostprocessing = 0; };
-		AB0000000000000000000007 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
-		AB0000000000000000000008 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
-		AB0000000000000000000009 = {isa = PBXBuildFile; fileRef = AB0000000000000000000001; };
-		AB000000000000000000000A = {isa = PBXTargetDependency; target = FE1001000000000000000001; targetProxy = AB000000000000000000000B; };
-		AB000000000000000000000B = {isa = PBXContainerItemProxy; containerPortal = 83CBB9F71A601CBA00E9B192; proxyType = 1; remoteGlobalIDString = FE1001000000000000000001; remoteInfo = DeskUtils; };
-		AB000000000000000000000C = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Manual;
-				CODE_SIGN_IDENTITY = "-";
-				DEVELOPMENT_TEAM = "";
-				ENABLE_APP_SANDBOX = NO;
-				GENERATE_INFOPLIST_FILE = YES;
-				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/../Frameworks", "@loader_path/../Frameworks",);
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.nguyen.DeskUtilsUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = DeskUtils;
-			};
-			name = Debug;
-		};
-		AB000000000000000000000D = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Manual;
-				CODE_SIGN_IDENTITY = "-";
-				DEVELOPMENT_TEAM = "";
-				ENABLE_APP_SANDBOX = NO;
-				GENERATE_INFOPLIST_FILE = YES;
-				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/../Frameworks", "@loader_path/../Frameworks",);
-				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.nguyen.DeskUtilsUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = DeskUtils;
-			};
-			name = Release;
-		};
 	};
 	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }

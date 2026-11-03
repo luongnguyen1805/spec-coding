@@ -40,7 +40,8 @@
 # Views
 
 - Dashboard View
-    - Title: "Desktop Utilities"
+    - Header: app name, then version "v{version}" in secondary color
+        - Read from the app bundle: display name and short version
     - Grid: 3 flexible columns
     - Card View 
         Rounded Rect radius=10

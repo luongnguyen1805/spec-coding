@@ -5,11 +5,23 @@ struct DashboardView: View {
     @Binding var showFolderManager: Bool
     @Binding var showFolderSync: Bool
 
+    private let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ?? "Desktop Utilities"
+    private let appVersion = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text("Desktop Utilities")
-                .font(.defaultFontBold)
-                .padding(24)
+            HStack(alignment: .firstTextBaseline, spacing: 8) {
+                Text(appName)
+                    .font(.defaultFontBold)
+                if let appVersion {
+                    Text("v\(appVersion)")
+                        .font(.defaultFont)
+                        .monospacedDigit()
+                        .foregroundStyle(.secondary)
+                }
+            }
+            .padding(24)
+            .accessibilityIdentifier("dashboard.header")
 
             LazyVGrid(columns: [GridItem(.flexible(), spacing: 16),
                                 GridItem(.flexible(), spacing: 16),
